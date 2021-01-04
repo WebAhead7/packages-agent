@@ -89,9 +89,7 @@ export default function DrawerNav(props) {
 
                 <ListItem button onClick={toggleDrawer}>
                   <ListItemIcon>
-                    {checkPackage() && pack.status === "in proccess" && (
-                      <HomeIcon />
-                    )}
+                    <HomeIcon />
                   </ListItemIcon>
                   <ListItemText primary={"Home"} />
                 </ListItem>
@@ -189,7 +187,7 @@ export default function DrawerNav(props) {
             <>
               <Switch>
                 <Route exact path={HomeRoute}>
-                  <Home />
+                  <Package />
                 </Route>
                 <Route exact path={MapView}>
                   <Map />

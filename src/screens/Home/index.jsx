@@ -49,6 +49,7 @@ const Home = (props) => {
       >
         <Filter />
         {ownerInfo.data && !ownerInfo.data.businessId && <AddStoreButton />}
+
         {packages && <PackageList data={packages} />}
 
         {ownerInfo.data && ownerInfo.data.businessId && (
