@@ -68,12 +68,12 @@ const Signup = () => {
       firstname: v.firstname,
       lastname: v.lastname,
       phone: v.phone,
-      mobile: v.mobile,
       email: v.email,
       password: v.password,
       confirm: v.confirm,
-      idImage: v.idImage,
-      idNumber: v.idNumber,
+      id_num: v.id_num,
+      licenseImage: v.licenseImage,
+
       address: {
         city: v.city,
         street: v.street,
@@ -83,11 +83,10 @@ const Signup = () => {
         longitude: v.longitude,
         latitude: v.latitude,
       },
-      payment: {
-        idNumber: v.idNumber,
-        creditNo: v.creditNo,
-        expDate: v.expDate,
-        cvv: v.cvv,
+      bank: {
+        id_num: v.id_num,
+        bank_name: v.bank_name,
+        account_no: v.account_no,
       },
     };
 

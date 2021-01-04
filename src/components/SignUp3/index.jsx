@@ -22,10 +22,6 @@ const SignUp3 = (props) => {
   const values = props.values;
   const handlerInputs = props.handlerInputs;
 
-  // bank_name: "",
-  // bank_no: "",
-  // account_no: "",
-  // monthly_paychecks: "",
   return (
     <Container>
       <div>
