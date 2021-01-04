@@ -16,6 +16,7 @@ import Filter from "../../components/Filter";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 
 import { getAllPackages } from "../../api/api";
+import { BorderColor } from "@material-ui/icons";
 
 const data = [
   {
@@ -74,6 +75,20 @@ const data = [
     latitude: 45.4212,
     longitude: -75.6907,
   },
+  {
+    addedAt: "35 mins ago",
+    status: "On transit",
+    agent: "Mario",
+    latitude: 45.4212,
+    longitude: -75.6907,
+  },
+  {
+    addedAt: "35 mins ago",
+    status: "On transit",
+    agent: "Mario",
+    latitude: 45.4212,
+    longitude: -75.6907,
+  },
 ];
 
 const Map = (props) => {
@@ -87,7 +102,6 @@ const Map = (props) => {
   } = useContext(globalContext);
 
   useEffect(() => {
-    console.log("test");
     getAllPackages(setPackages, auth.token);
   }, []);
 
@@ -111,7 +125,6 @@ const Map = (props) => {
         mapStyle="mapbox://styles/mapbox/streets-v11"
         onViewportChange={(viewport) => {
           setViewport(viewport);
-          console.log(viewport);
         }}
       >
         {data.map((pack, index) => (
@@ -134,12 +147,8 @@ const Map = (props) => {
                 e.preventDefault();
                 setSelectedPackage(pack);
                 setViewport({
-                  latitude: selectedPackage
-                    ? selectedPackage.latitude
-                    : 45.4212,
-                  longitude: selectedPackage
-                    ? selectedPackage.longitude
-                    : -75.6903,
+                  latitude: selectedPackage ? pack.latitude : 45.4212,
+                  longitude: selectedPackage ? pack.longitude : -75.6903,
                   width: "100vw",
                   height: "100vh",
                   zoom: 14,
@@ -147,7 +156,7 @@ const Map = (props) => {
                 });
               }}
             >
-              Package
+              Store
             </button>
           </Marker>
         ))}
@@ -166,6 +175,24 @@ const Map = (props) => {
             </div>
           </Popup>
         ) : null}
+        {selectedPackage && (
+          <div
+            style={{
+              width: "100%",
+              position: "fixed",
+              top: 60,
+              height: 50,
+              background: "#fff",
+              borderColor: "#000",
+              borderWidth: 1,
+              borderRadius: 15,
+            }}
+          >
+            {`${selectedPackage.status}
+
+            ${selectedPackage.addedAt}`}
+          </div>
+        )}
       </ReactMapGL>
     </>
   );

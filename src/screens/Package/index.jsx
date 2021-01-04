@@ -14,6 +14,8 @@ const Package = (props) => {
   return (
     <Container className={styles.container}>
       <PackageHeader />
+      <PackageStatus />
+
       <PackageTabs />
     </Container>
   );

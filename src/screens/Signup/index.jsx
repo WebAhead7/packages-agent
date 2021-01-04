@@ -18,6 +18,7 @@ import {
   Container,
   Divider,
 } from "@material-ui/core";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 // import AccountCircle from "@material-ui/icons/AccountCircle";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -87,6 +88,7 @@ const Signup = () => {
         id_num: v.id_num,
         bank_name: v.bank_name,
         account_no: v.account_no,
+        bank_no: v.bank_no,
       },
     };
 
@@ -121,6 +123,7 @@ const Signup = () => {
         {flag.flag2 && (
           <div>
             <SignUp2 values={values} handlerInputs={handlerInputs} />
+
             <Button
               variant="contained"
               color="primary"
@@ -131,11 +134,22 @@ const Signup = () => {
             >
               Next
             </Button>
+            <IconButton
+              style={{ marginTop: 20 }}
+              onClick={() => {
+                setFlag({ flag1: true, flag2: false, flag3: false });
+              }}
+            >
+              <ArrowBackIcon
+                style={{ color: "#000", fontSize: 40, fontWeight: "bold" }}
+              />
+            </IconButton>
           </div>
         )}
         {flag.flag3 && (
           <div>
             <SignUp3 values={values} handlerInputs={handlerInputs} />
+
             <Button
               variant="contained"
               color="primary"
@@ -147,6 +161,16 @@ const Signup = () => {
             >
               Finish
             </Button>
+            <IconButton
+              style={{ marginTop: 20 }}
+              onClick={() => {
+                setFlag({ flag1: false, flag2: true, flag3: false });
+              }}
+            >
+              <ArrowBackIcon
+                style={{ color: "#000", fontSize: 40, fontWeight: "bold" }}
+              />
+            </IconButton>
           </div>
         )}
       </div>

@@ -49,7 +49,7 @@ const useStyles = makeStyles({
 
 export default function DrawerNav(props) {
   const styles = useStyles();
-  const [state, setState] = React.useState(false);
+
   const { drawer, setDrawer, auth, setAuth, setOwnerInfo } = useContext(
     globalContext
   );
@@ -85,13 +85,18 @@ export default function DrawerNav(props) {
                 className={styles.link}
                 style={{ textDecoration: "none", color: "#000" }}
               >
+                <div> </div>
+
                 <ListItem button onClick={toggleDrawer}>
                   <ListItemIcon>
-                    <HomeIcon />
+                    {checkPackage() && pack.status === "in proccess" && (
+                      <HomeIcon />
+                    )}
                   </ListItemIcon>
                   <ListItemText primary={"Home"} />
                 </ListItem>
               </Link>
+              <HomeIcon />
               {/* <Link
                 to={PackageRoute}
                 className={styles.link}
@@ -184,10 +189,9 @@ export default function DrawerNav(props) {
             <>
               <Switch>
                 <Route exact path={HomeRoute}>
-                  {/* <Home /> */}
-                  <Map />
+                  <Home />
                 </Route>
-                <Route exact path={HomeRoute}>
+                <Route exact path={MapView}>
                   <Map />
                 </Route>
                 <Route path={PackageRoute}>
