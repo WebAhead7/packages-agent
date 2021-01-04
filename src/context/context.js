@@ -17,7 +17,7 @@ const GlobalContextProvider = (props) => {
   });
   const token = getItemLocal("accessToken");
   const [auth, setAuth] = useState({
-    isAuth: false,
+    isAuth: true,
     error: null,
     token: null,
     isLoading: false,

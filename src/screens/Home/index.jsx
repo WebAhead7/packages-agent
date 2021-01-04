@@ -29,7 +29,6 @@ const Home = (props) => {
   } = useContext(globalContext);
 
   useEffect(() => {
-    console.log("test");
     getAllPackages(setPackages, auth.token);
   }, []);
 

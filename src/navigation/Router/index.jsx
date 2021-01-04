@@ -18,6 +18,8 @@ import {
   Redirect,
 } from "react-router-dom";
 import Home from "../../screens/Home";
+import Map from "../../screens/Map";
+
 import Package from "../../screens/Package";
 import Login from "../../screens/Login";
 import Profile from "../../screens/Profile";
@@ -33,6 +35,7 @@ export const LoginRoute = "/login";
 export const ProfileRoute = "/profile";
 export const RegisterRoute = "/register";
 export const AddPackageRoute = "/addBackage";
+export const MapView = "/mapview";
 export const AddBusinessRoute = "/add_business";
 
 const useStyles = makeStyles({
@@ -114,6 +117,18 @@ export default function DrawerNav(props) {
                   <ListItemText primary={"Profile"} />
                 </ListItem>
               </Link>
+              <Link
+                to={MapView}
+                className={styles.link}
+                style={{ textDecoration: "none", color: "#000" }}
+              >
+                <ListItem button onClick={toggleDrawer}>
+                  <ListItemIcon>
+                    <InfoIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Map view"} />
+                </ListItem>
+              </Link>
               {/* <Link
                 to={AddPackageRoute}
                 className={styles.link}
@@ -169,7 +184,11 @@ export default function DrawerNav(props) {
             <>
               <Switch>
                 <Route exact path={HomeRoute}>
-                  <Home />
+                  {/* <Home /> */}
+                  <Map />
+                </Route>
+                <Route exact path={HomeRoute}>
+                  <Map />
                 </Route>
                 <Route path={PackageRoute}>
                   <Package />
