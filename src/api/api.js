@@ -105,7 +105,7 @@ export const getOwnerProfile = async (setOwnerInfo, token) => {
 export const signUpApi = async (setAuth, data) => {
   const options = {
     method: "POST",
-    url: "http://localhost:4000/owner/signup",
+    url: "http://localhost:4000/agent/signup",
     headers: {
       "Content-Type": "application/json",
     },

@@ -29,7 +29,6 @@ const Home = (props) => {
   } = useContext(globalContext);
 
   useEffect(() => {
-    console.log("test");
     getAllPackages(setPackages, auth.token);
   }, []);
 
@@ -50,6 +49,7 @@ const Home = (props) => {
       >
         <Filter />
         {ownerInfo.data && !ownerInfo.data.businessId && <AddStoreButton />}
+
         {packages && <PackageList data={packages} />}
 
         {ownerInfo.data && ownerInfo.data.businessId && (
