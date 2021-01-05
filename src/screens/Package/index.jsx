@@ -1,22 +1,27 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Container } from "@material-ui/core";
+import { globalContext } from "../../context/context";
 import useStyles from "./styles";
 import PackageHeader from "../../components/PackageHeader";
 import Loader from "../../components/Loader";
 import PackageTabs from "../../components/PackageTabs";
+import Links from "../../components/Links";
+import Confirm from "../../components/Confirm";
+import ButtonPackage from "../../components/ButtonPackage";
 import PackageStatus from "../../components/PackageStatus";
 import { getPackageStatus } from "../../api/api";
-import { globalContext } from "../../context/context";
+import PackageInfo from "../../components/PackageInfo";
 
 const Package = (props) => {
+  const [confirmation, setConfirmation] = useState(null);
   const styles = useStyles();
   const [status, setStatus] = useState(null);
   const [currentPackage, setCurrentPackage] = useState(null);
-  const { auth, packages } = useContext(globalContext);
+  const { auth, setAuth, packages } = useContext(globalContext);
   const [value, setValue] = useState(2);
-  const params = useParams();
-
+  //const params = useParams();
+  const params = { id: 1 };
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -32,13 +37,38 @@ const Package = (props) => {
     }
     getPackageStatus(auth.token, params.id, setStatus);
   }, []);
-  console.log({ currentPackage, packages })
+  console.log({ currentPackage })
   if (!currentPackage && !packages) return <Loader />;
 
   return (
     <Container className={styles.container}>
-      {currentPackage && <PackageHeader data={currentPackage} />}
+
+      {/* <PackageStatus /> */}
+
+      {/* <PackageTabs /> */}
+
+      {/* {currentPackage && <PackageHeader data={currentPackage} />}
+
       {status && <PackageStatus status={status} />}
+
+      {(status == "Pending" || satus == "On transit") && <PackageInfo />} */}
+
+      {/* {(status == "Waiting for confirmation" || status == "Waiting to be delivered")
+        && <Confirm
+          setConfirmation={setConfirmation}
+          confirmationCode={confirmation}
+        />} */}
+
+      {<Links />}
+
+      {/* <ButtonPackage
+        packageId={currentPackage._id}
+        businessId={currentPackage.businessId}
+        status={status}
+        token={auth.token}
+        confirmationCode={confirmation}
+      /> */}
+
     </Container>
   );
 };

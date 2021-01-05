@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { globalContext } from "../../context/context";
-import { getOwnerProfile } from "../../api/api";
+import { getAgentProfile } from "../../api/api";
 import {
   Button,
   TextField,
@@ -14,16 +14,14 @@ import Loader from "../../components/Loader";
 import PackageList from "../../components/PackageList";
 import Filter from "../../components/Filter";
 import SwitchToMap from "../../components/SwitchToMap";
-import AddStoreButton from "../../components/AddStoreButton";
-
 import { getAllPackages } from "../../api/api";
 
 const Home = (props) => {
   const {
     auth,
     setAuth,
-    ownerInfo,
-    setOwnerInfo,
+    agentInfo,
+    setAgentInfo,
     packages,
     setPackages,
   } = useContext(globalContext);
@@ -33,14 +31,14 @@ const Home = (props) => {
   }, []);
 
   useEffect(() => {
-    if (!ownerInfo.data) {
-      getOwnerProfile(setOwnerInfo, auth.token);
+    if (!agentInfo.data) {
+      getAgentProfile(setAgentInfo, auth.token);
     }
   }, []);
   console.log(ownerInfo);
 
-  if (ownerInfo.isLoading) return <Loader />;
-  console.log(1, packages);
+  if (agentInfo.isLoading) return <Loader />;
+
   return (
     <>
       <Container

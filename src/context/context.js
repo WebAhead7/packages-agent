@@ -17,7 +17,7 @@ const GlobalContextProvider = (props) => {
     isLoading: false,
     data: null,
   });
-  const [ownerInfo, setOwnerInfo] = useState({
+  const [agentInfo, setAgentInfo] = useState({
     isLoading: false,
     data: null,
   });
@@ -48,8 +48,8 @@ const GlobalContextProvider = (props) => {
         setDrawer,
         auth,
         setAuth,
-        setOwnerInfo,
-        ownerInfo,
+        setAgentInfo,
+        agentInfo,
         packages,
         setPackages,
         myLocation,

@@ -8,6 +8,7 @@ import { getAllPackages } from "./api/api";
 
 import Navigation from "./navigation/Navigation";
 import DrawerNav from "./navigation/Router";
+import Package from "./screens/Package";
 
 function App(props) {
   const [nav, setNav] = useState(false);
@@ -35,7 +36,10 @@ function App(props) {
   }, []);
   return (
     <div className="App">
-      <DrawerNav nav={nav} setNav={setNav} />
+      {/* <Header /> */}
+
+      <Package />
+      {/* <DrawerNav nav={nav} setNav={setNav} /> */}
     </div>
   );
 }

@@ -2,10 +2,10 @@ import axios from "axios";
 
 import { setItemLocal, getItemLocal } from "../hooks/localStorage";
 
-export const ownerLogin = async (loginInfo, setAuth, setOwnerInfo) => {
+export const agentLogin = async (loginInfo, setAuth, setAgentInfo) => {
   const options = {
     method: "POST",
-    url: "http://localhost:4000/owner/login",
+    url: "http://localhost:4000/agent/login",
     headers: { "Content-Type": "application/json" },
     data: { loginInfo },
   };
@@ -26,7 +26,7 @@ export const ownerLogin = async (loginInfo, setAuth, setOwnerInfo) => {
 
     const response = await res.json();
 
-    if (response.owner) {
+    if (response.agent) {
       setAuth({
         isAuth: true,
         error: null,
@@ -34,7 +34,7 @@ export const ownerLogin = async (loginInfo, setAuth, setOwnerInfo) => {
         isLoading: false,
       });
 
-      setOwnerInfo(response.owner);
+      setOwnerInfo(response.agent);
 
       setItemLocal("accessToken", response.accessToken);
     }
