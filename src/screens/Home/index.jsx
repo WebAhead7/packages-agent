@@ -41,6 +41,7 @@ const Home = (props) => {
   if (ownerInfo.isLoading) return <Loader />;
 
   console.log(ownerInfo);
+  console.log(packages);
 
   return (
     <>
@@ -48,6 +49,7 @@ const Home = (props) => {
         style={{ height: "100%", display: "flex", flexDirection: "column" }}
       >
         <Filter />
+        <button onClick={() => { getAllPackages(setPackages, auth.token) }}>edddd</button>
         {ownerInfo.data && !ownerInfo.data.businessId && <AddStoreButton />}
 
         {packages && <PackageList data={packages} />}

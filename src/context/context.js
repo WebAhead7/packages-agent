@@ -5,7 +5,9 @@ export const globalContext = createContext();
 const get = "get";
 
 const GlobalContextProvider = (props) => {
-  const [filter, setFilter] = useState("all");
+  const [type, setType] = useState("all");
+  const [radius, setRadius] = useState((prev) => prev);
+  const [cost, setCost] = useState((prev) => prev);
   const [drawer, setDrawer] = useState(false);
   const [packages, setPackages] = useState({
     isLoading: false,
@@ -32,8 +34,12 @@ const GlobalContextProvider = (props) => {
   return (
     <globalContext.Provider
       value={{
-        filter,
-        setFilter,
+        type,
+        setType,
+        radius,
+        setRadius,
+        cost,
+        setCost,
         drawer,
         setDrawer,
         auth,

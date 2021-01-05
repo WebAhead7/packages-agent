@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container } from "@material-ui/core";
 import useStyles from "./styles";
 import PackageHeader from "../../components/PackageHeader";
 import PackageTabs from "../../components/PackageTabs";
-
+import PackageStatus from "../../components/PackageStatus";
+import { getPackageStatus } from '../../api/api';
+import { globalContext } from '../../context/context';
+const packageId = "sjddfbdjdnq";
 const Package = (props) => {
+  const [status, setStatus] = React.useState("");
+  const {
+    auth
+  } = useContext(globalContext)
+  React.useEffect(() => {
+    getPackageStatus(auth.token, packageId)
+  }, [])
   const [value, setValue] = React.useState(2);
 
   const styles = useStyles();
@@ -14,7 +24,7 @@ const Package = (props) => {
   return (
     <Container className={styles.container}>
       <PackageHeader />
-      {/* <PackageStatus /> */}
+      <PackageStatus />
 
       <PackageTabs />
     </Container>

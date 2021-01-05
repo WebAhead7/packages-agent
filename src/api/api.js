@@ -42,10 +42,9 @@ export const getAllPackages = async (setPackages, token) => {
       data: null,
     });
 
-    const response = await fetch(`${local}/package/`, {
+    const response = await fetch(`${local}/package/filteredPackages`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
         authorization: `Bearer ${token}`,
       },
     });
@@ -56,6 +55,7 @@ export const getAllPackages = async (setPackages, token) => {
     });
 
     const res = await response.json();
+    console.log(res);
 
     setPackages({
       isLoading: false,
@@ -189,5 +189,24 @@ export const addPackage = async (values, token) => {
     }
   } catch (e) {
     console.log(e.message);
+  }
+};
+
+
+export const getPackageStatus = async (token, packageId, setStatus) => {
+  try {
+
+    const response = await fetch(`${local}/agent/package/${packageId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    const res = await response.json();
+    setStatus(res);
+  } catch (err) {
+    console.log(err);
   }
 };
