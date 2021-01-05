@@ -107,7 +107,6 @@ const AddBusiness = () => {
                 value={values.category}
                 onChange={(e) => {
                   handlerInputs(e, "category");
-                  console.log(e.target.value);
                 }}
                 SelectProps={{
                   native: true,

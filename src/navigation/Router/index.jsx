@@ -20,6 +20,7 @@ import {
 import Home from "../../screens/Home";
 import Map from "../../screens/Map";
 
+import StoreScreen from "../../screens/StoreScreen";
 import Package from "../../screens/Package";
 import Login from "../../screens/Login";
 import Profile from "../../screens/Profile";
@@ -27,15 +28,16 @@ import Register from "../../screens/Signup";
 import AddPackage from "../../screens/AddPackage";
 import AddBusiness from "../../screens/AddBusiness";
 import Header from "../../components/Header";
-import AddPackageButton from "../../components/AddPackageButton";
+import SwitchToMap from "../../components/SwitchToMap";
 
 export const HomeRoute = "/";
-export const PackageRoute = "/package";
+export const PackageRoute = "/package/:id";
 export const LoginRoute = "/login";
 export const ProfileRoute = "/profile";
 export const RegisterRoute = "/register";
 export const AddPackageRoute = "/addBackage";
-export const MapView = "/mapview";
+export const MapViewRoute = "/mapview";
+export const StoreRoute = "./storeview";
 export const AddBusinessRoute = "/add_business";
 
 const useStyles = makeStyles({
@@ -50,9 +52,14 @@ const useStyles = makeStyles({
 export default function DrawerNav(props) {
   const styles = useStyles();
 
-  const { drawer, setDrawer, auth, setAuth, setOwnerInfo } = useContext(
-    globalContext
-  );
+  const {
+    drawer,
+    setDrawer,
+    auth,
+    setAuth,
+    setOwnerInfo,
+    packages,
+  } = useContext(globalContext);
 
   const toggleDrawer = () => {
     setDrawer(!drawer);
@@ -94,7 +101,7 @@ export default function DrawerNav(props) {
                   <ListItemText primary={"Home"} />
                 </ListItem>
               </Link>
-              <HomeIcon />
+
               {/* <Link
                 to={PackageRoute}
                 className={styles.link}
@@ -120,18 +127,7 @@ export default function DrawerNav(props) {
                   <ListItemText primary={"Profile"} />
                 </ListItem>
               </Link>
-              <Link
-                to={MapView}
-                className={styles.link}
-                style={{ textDecoration: "none", color: "#000" }}
-              >
-                <ListItem button onClick={toggleDrawer}>
-                  <ListItemIcon>
-                    <InfoIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Map view"} />
-                </ListItem>
-              </Link>
+
               {/* <Link
                 to={AddPackageRoute}
                 className={styles.link}
@@ -180,6 +176,7 @@ export default function DrawerNav(props) {
                 <Route path={RegisterRoute}>
                   <Register />
                 </Route>
+
                 <Route render={() => <Redirect to="/" />} />
               </Switch>
             </>
@@ -187,28 +184,14 @@ export default function DrawerNav(props) {
             <>
               <Switch>
                 <Route exact path={HomeRoute}>
-                  <Package />
+                  <Home />
                 </Route>
-                <Route exact path={MapView}>
+                <Route exact path={MapViewRoute}>
                   <Map />
                 </Route>
-                <Route path={PackageRoute}>
-                  <Package />
-                </Route>
-                <Route path={LoginRoute}>
-                  <Login />
-                </Route>
+                <Route path={PackageRoute}>{packages && <Package />}</Route>
                 <Route path={ProfileRoute}>
                   <Profile />
-                </Route>
-                <Route path={RegisterRoute}>
-                  <Register />
-                </Route>
-                <Route path={AddPackageRoute}>
-                  <AddPackage />
-                </Route>
-                <Route path={AddBusinessRoute}>
-                  <AddBusiness />
                 </Route>
                 <Route render={() => <Redirect to="/" />} />
               </Switch>

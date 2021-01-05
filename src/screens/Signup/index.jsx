@@ -155,7 +155,6 @@ const Signup = () => {
               color="primary"
               className={styles.button}
               onClick={() => {
-                console.log(values);
                 handleRegister(values);
               }}
             >

@@ -13,9 +13,7 @@ import useStyles from "./styles";
 import Loader from "../../components/Loader";
 import PackageList from "../../components/PackageList";
 import Filter from "../../components/Filter";
-import AddPackageButton from "../../components/AddPackageButton";
-import AddStoreButton from "../../components/AddStoreButton";
-
+import SwitchToMap from "../../components/SwitchToMap";
 import { getAllPackages } from "../../api/api";
 
 const Home = (props) => {
@@ -40,8 +38,6 @@ const Home = (props) => {
 
   if (agentInfo.isLoading) return <Loader />;
 
-  console.log(agentInfo);
-
   return (
     <>
       <Container
@@ -50,19 +46,16 @@ const Home = (props) => {
         <Filter />
 
         {packages && <PackageList data={packages} />}
-
-        {/* {ownerInfo.data && ownerInfo.data.businessId && (
-          <div
-            style={{
-              position: "sticky",
-              right: 25,
-              bottom: 25,
-              alignSelf: "flex-end",
-            }}
-          >
-            <AddPackageButton />
-          </div>
-        )} */}
+        <div
+          style={{
+            position: "sticky",
+            right: 25,
+            bottom: 25,
+            alignSelf: "flex-end",
+          }}
+        >
+          <SwitchToMap />
+        </div>
       </Container>
     </>
   );

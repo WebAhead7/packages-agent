@@ -1,13 +1,13 @@
 import React from "react";
 import { Typography, Avatar, Container } from "@material-ui/core";
 import useStyles from "./styles";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import EditIcon from "@material-ui/icons/Edit";
 import moment from "moment";
 
-const PackageHeader = (props) => {
-  const { name, createdAt } = props.data;
+import AddBoxIcon from "@material-ui/icons/AddBox";
+import EditIcon from "@material-ui/icons/Edit";
 
+const StoreHeader = (props) => {
+  // const { firstname, lastname, createdAt } = props.data.data;
   const styles = useStyles();
 
   return (
@@ -16,26 +16,28 @@ const PackageHeader = (props) => {
         <Avatar
           className={styles.avatar}
           alt="Remy Sharp"
-          src="/assets/images/package.png"
+          src="/assets/images/profile.png"
         />
         <Typography style={{ marginTop: 10 }} variant="h5">
-          {name}
+          {/* {`${name}`} */}
+          Store Name
         </Typography>
         <div className={styles.controls}>
           <div className={styles.innerControls}>
             <Typography variant="caption" style={{ color: "#727272" }}>
-              Created at:
+              Working hours
             </Typography>
             <Typography variant="subtitle2" style={{ color: "#5A5A5A" }}>
-              {moment(createdAt).fromNow()}
+              {/* {moment(createdAt).format("LL")} */}
+              09:00 - 18:00
             </Typography>
           </div>
           <div>
-            {/* <EditIcon
+            <EditIcon
               fontSize="large"
               style={{ marginRight: 20, color: "#11890F" }}
             />
-            <DeleteForeverIcon fontSize="large" style={{ color: "#FF0000" }} /> */}
+            <AddBoxIcon fontSize="large" style={{ color: "#FF0000" }} />
           </div>
         </div>
       </div>
@@ -43,4 +45,4 @@ const PackageHeader = (props) => {
   );
 };
 
-export default PackageHeader;
+export default StoreHeader;

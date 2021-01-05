@@ -20,12 +20,12 @@ import { setItemLocal, getItemLocal } from "../../hooks/localStorage";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import useStyles from "./styles";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { ownerLogin } from "../../hooks/useLogin";
+import { agentLogin } from "../../hooks/useLogin";
 const get = "get";
 
 const Login = (props) => {
   const styles = useStyles();
-  const { drawer, setDrawer, auth, setAuth, setOwnerInfo } = useContext(
+  const { drawer, setDrawer, auth, setAuth, setAgentInfo } = useContext(
     globalContext
   );
 
@@ -48,7 +48,7 @@ const Login = (props) => {
   });
 
   const handleLogin = (v) => {
-    ownerLogin(v, setAuth, setOwnerInfo);
+    agentLogin(v, setAuth, setAgentInfo);
   };
 
   const handlerInputs = (event, inputName) => {

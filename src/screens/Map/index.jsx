@@ -14,80 +14,81 @@ import Loader from "../../components/Loader";
 import PackageList from "../../components/PackageList";
 import Filter from "../../components/Filter";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import StoreIcon from "@material-ui/icons/Store";
+import StoreOverMap from "../../components/StoreOverMap";
 
 import { getAllPackages } from "../../api/api";
-import { BorderColor } from "@material-ui/icons";
 
 const data = [
   {
     addedAt: "10 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 45.4011,
-    longitude: -75.6903,
+    latitude: 32.867077099999996,
+    longitude: 35.1818527,
   },
   {
     addedAt: "13 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 45.4211,
-    longitude: -75.6803,
+    latitude: 32.867077099999996,
+    longitude: 35.1818517,
   },
   {
     addedAt: "28 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 45.4111,
-    longitude: -75.6603,
+    latitude: 32.867077099999996,
+    longitude: 35.1818537,
   },
   {
     addedAt: "28 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 45.4111,
-    longitude: -75.6803,
+    latitude: 32.867077099999996,
+    longitude: 35.1818547,
   },
   {
     addedAt: "28 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 45.4111,
-    longitude: -75.6203,
+    latitude: 32.867077099999996,
+    longitude: 35.1818557,
   },
   {
     addedAt: "28 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 45.4011,
-    longitude: -75.6913,
+    latitude: 32.867077099999996,
+    longitude: 35.1818567,
   },
   {
     addedAt: "28 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 45.4221,
-    longitude: -75.6923,
+    latitude: 32.867077099999996,
+    longitude: 35.1818577,
   },
   {
     addedAt: "35 mins ago",
     status: "On transit",
     agent: "Mario",
-    latitude: 45.4212,
-    longitude: -75.6907,
+    latitude: 32.867077099999996,
+    longitude: 35.1818587,
   },
   {
     addedAt: "35 mins ago",
     status: "On transit",
     agent: "Mario",
-    latitude: 45.4212,
-    longitude: -75.6907,
+    latitude: 32.867077099999996,
+    longitude: 35.1818592,
   },
   {
     addedAt: "35 mins ago",
     status: "On transit",
     agent: "Mario",
-    latitude: 45.4212,
-    longitude: -75.6907,
+    latitude: 32.867077099999996,
+    longitude: 35.1818598,
   },
 ];
 
@@ -99,15 +100,18 @@ const Map = (props) => {
     setOwnerInfo,
     packages,
     setPackages,
+    myLocation,
   } = useContext(globalContext);
 
   useEffect(() => {
     getAllPackages(setPackages, auth.token);
   }, []);
 
+  console.log(myLocation);
+
   const [viewport, setViewport] = useState({
-    latitude: 45.4211,
-    longitude: -75.6903,
+    latitude: myLocation.coords.latitude,
+    longitude: myLocation.coords.longitude,
     width: "100vw",
     height: "100vh",
     zoom: 10,
@@ -138,9 +142,8 @@ const Map = (props) => {
                 borderRadius: 40,
                 background: "#000",
                 color: "#fff",
-                width: 80,
-                height: 80,
-                fontSize: 18,
+                width: 60,
+                height: 60,
               }}
               className="marker-btn"
               onClick={(e) => {
@@ -156,43 +159,28 @@ const Map = (props) => {
                 });
               }}
             >
-              Store
+              <StoreIcon fontSize="large" />
             </button>
           </Marker>
         ))}
 
         {selectedPackage ? (
-          <Popup
-            latitude={selectedPackage.latitude}
-            longitude={selectedPackage.longitude}
-            onClose={() => {
-              setSelectedPackage(null);
-            }}
-          >
-            <div>
-              <h2>{selectedPackage.status}</h2>
-              <p>{selectedPackage.addedAt}</p>
-            </div>
-          </Popup>
+          <>
+            <Popup
+              latitude={selectedPackage.latitude}
+              longitude={selectedPackage.longitude}
+              onClose={() => {
+                setSelectedPackage(null);
+              }}
+            >
+              <div>
+                <h4>Packages: 3</h4>
+                <p>4 KM away</p>
+              </div>
+            </Popup>
+          </>
         ) : null}
-        {selectedPackage && (
-          <div
-            style={{
-              width: "100%",
-              position: "fixed",
-              top: 60,
-              height: 50,
-              background: "#fff",
-              borderColor: "#000",
-              borderWidth: 1,
-              borderRadius: 15,
-            }}
-          >
-            {`${selectedPackage.status}
-
-            ${selectedPackage.addedAt}`}
-          </div>
-        )}
+        {selectedPackage && <StoreOverMap />}
       </ReactMapGL>
     </>
   );

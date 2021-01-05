@@ -1,5 +1,7 @@
 import { setItemLocal, getItemLocal } from "../hooks/localStorage";
 
+const testToken = getItemLocal("accessToken");
+
 const local = "http://localhost:4000";
 
 export const getAllPackages = async (setPackages, token) => {
@@ -8,11 +10,10 @@ export const getAllPackages = async (setPackages, token) => {
       isLoading: true,
       data: null,
     });
-
-    const response = await fetch(`${local}/package/`, {
+    
+    const response = await fetch(`${local}/package/filtered_packages`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
         authorization: `Bearer ${token}`,
       },
     });
@@ -128,11 +129,25 @@ export const requestPackage = async (token) => {
     const response = await fetch(options.url, options);
 
     const res = await response.json();
-
-    if (res) {
-      console.log(res);
-    }
   } catch (e) {
     console.log(e.message);
+  }
+};
+
+export const getPackageStatus = async (token, packageId, setStatus) => {
+  try {
+    const response = await fetch(`${local}/agent/package_status/${packageId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${testToken}`,
+      },
+    });
+
+    const res = await response.json();
+    console.log(res);
+    setStatus(res.status);
+  } catch (err) {
+    console.log(err);
   }
 };
