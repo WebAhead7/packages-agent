@@ -184,36 +184,36 @@ export default function DrawerNav(props) {
               </Switch>
             </>
           ) : (
-            <>
-              <Switch>
-                <Route exact path={HomeRoute}>
-                  <Package />
-                </Route>
-                <Route exact path={MapView}>
-                  <Map />
-                </Route>
-                <Route path={PackageRoute}>
-                  <Package />
-                </Route>
-                <Route path={LoginRoute}>
-                  <Login />
-                </Route>
-                <Route path={ProfileRoute}>
-                  <Profile />
-                </Route>
-                <Route path={RegisterRoute}>
-                  <Register />
-                </Route>
-                <Route path={AddPackageRoute}>
-                  <AddPackage />
-                </Route>
-                <Route path={AddBusinessRoute}>
-                  <AddBusiness />
-                </Route>
-                <Route render={() => <Redirect to="/" />} />
-              </Switch>
-            </>
-          )}
+              <>
+                <Switch>
+                  <Route exact path={HomeRoute}>
+                    <Home />
+                  </Route>
+                  <Route exact path={MapView}>
+                    <Map />
+                  </Route>
+                  <Route path={PackageRoute}>
+                    <Package />
+                  </Route>
+                  <Route path={LoginRoute}>
+                    <Login />
+                  </Route>
+                  <Route path={ProfileRoute}>
+                    <Profile />
+                  </Route>
+                  <Route path={RegisterRoute}>
+                    <Register />
+                  </Route>
+                  <Route path={AddPackageRoute}>
+                    <AddPackage />
+                  </Route>
+                  <Route path={AddBusinessRoute}>
+                    <AddBusiness />
+                  </Route>
+                  <Route render={() => <Redirect to="/" />} />
+                </Switch>
+              </>
+            )}
         </React.Fragment>
       </Router>
     </div>
