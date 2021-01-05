@@ -20,6 +20,8 @@ const Confirm = (props) => {
       <div className={styles.input}>
         <p className={styles.header}>Confirmation Code</p>
         <TextField
+          value={props.confirmationCode}
+          onChange={(e) => props.setConfirmation(e.target.value)}
           id="filled-basic"
           label=""
           variant="filled"

@@ -12,8 +12,36 @@ import {
   Divider,
 } from "@material-ui/core";
 import useStyles from "./styles";
+import { requestPackage, pickUp, confirmOwner, UpdateWaiting, confirmClient } from "../../api/api"
 
 const ButtonPackage = (props) => {
+  const flag = false;
+  const statusFunctions = {
+    "Pending": {
+      function: () => requestPackage(props),
+      content: "Request Pacakge"
+    },
+    "In proccess": {
+      function: () => pickUp(props),
+      content: "Pick Up Pacakge"
+    },
+    "Waiting to be delivered": {
+      function: () => confirmOwner(props),
+      content: "Confirm"
+    },
+    "On transit": {
+      function: () => UpdateWaiting(props),
+      content: "Arrived"
+    },
+    "Waiting for confirmation": {
+      function: () => confirmClient(props),
+      content: "Confirm"
+    },
+    "Delivered": {
+      function: 3,
+      content: "Done"
+    },
+  }
   const styles = useStyles();
 
   return (
@@ -24,10 +52,10 @@ const ButtonPackage = (props) => {
           color="primary"
           className={styles.button}
           onClick={() => {
-            props.handleReq();
+            statusFunctions.status.function();
           }}
         >
-          {props.text}
+          {statusFunctions.status.content}
         </Button>
       </div>
     </Container>

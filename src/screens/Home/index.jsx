@@ -35,6 +35,7 @@ const Home = (props) => {
       getAgentProfile(setAgentInfo, auth.token);
     }
   }, []);
+  console.log(ownerInfo);
 
   if (agentInfo.isLoading) return <Loader />;
 
@@ -44,6 +45,7 @@ const Home = (props) => {
         style={{ height: "100%", display: "flex", flexDirection: "column" }}
       >
         <Filter />
+
 
         {packages && <PackageList data={packages} />}
         <div

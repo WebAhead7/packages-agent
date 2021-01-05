@@ -10,7 +10,7 @@ export const getAllPackages = async (setPackages, token) => {
       isLoading: true,
       data: null,
     });
-    
+
     const response = await fetch(`${local}/package/filtered_packages`, {
       method: "GET",
       headers: {
@@ -18,13 +18,14 @@ export const getAllPackages = async (setPackages, token) => {
       },
     });
 
+
     setPackages({
       isLoading: true,
       data: null,
     });
 
     const res = await response.json();
-
+    console.log(res)
     setPackages({
       isLoading: false,
       data: res,
@@ -114,15 +115,15 @@ export const signUpApi = async (setAuth, data) => {
 
 // Agent Buttons Fetch in Package screen
 
-export const requestPackage = async (token) => {
+export const requestPackage = async (props) => {
   const options = {
-    url: `${local}/agent/request_package/:businessId/:packageId`,
+    url: `${local}/agent/request_package/:${props.businessId}/:${props.packageId}`,
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
+      authorization: `Bearer ${props.token}`,
     },
-    body: JSON.stringify(),
+    body: JSON.stringify({ status: "InProcess" })
   };
 
   try {
@@ -143,11 +144,90 @@ export const getPackageStatus = async (token, packageId, setStatus) => {
         authorization: `Bearer ${testToken}`,
       },
     });
-
     const res = await response.json();
     console.log(res);
     setStatus(res.status);
   } catch (err) {
     console.log(err);
+  }
+};
+
+export const pickUp = async (props) => {
+  const options = {
+    url: `${local}/package/status/:${props.businessId}/:${props.packageId}`,
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${props.token}`,
+    },
+    body: JSON.stringify({ status: "Waiting to be delivered" })
+  };
+
+  try {
+    const response = await fetch(options.url, options);
+
+    const res = await response.json();
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const confirmOwner = async (props) => {
+  const options = {
+    url: `${local}/agent/confirm_pickup/:${props.businessId}/:${props.packageId}`,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${props.token}`,
+    },
+    body: JSON.stringify({ status: "On transit", confirmation: props.confirmationCode })
+  };
+
+  try {
+    const response = await fetch(options.url, options);
+
+    const res = await response.json();
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const confirmClient = async (props) => {
+  const options = {
+    url: `${local}/agent/confirm_delivery/:${props.businessId}/:${props.packageId}`,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${props.token}`,
+    },
+    body: JSON.stringify({ status: "Delivered", confirmation: props.confirmationCode })
+  };
+
+  try {
+    const response = await fetch(options.url, options);
+
+    const res = await response.json();
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const UpdateWaiting = async (props) => {
+  const options = {
+    url: `${local}/package/status/:${props.businessId}/:${props.packageId}`,
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${props.token}`,
+    },
+    body: JSON.stringify({ status: "Waiting for confirmation" })
+  };
+
+  try {
+    const response = await fetch(options.url, options);
+
+    const res = await response.json();
+  } catch (e) {
+    console.log(e.message);
   }
 };
