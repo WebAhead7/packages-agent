@@ -24,71 +24,71 @@ const data = [
     addedAt: "10 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 45.4011,
-    longitude: -75.6903,
+    latitude: 32.867077099999996,
+    longitude: 35.1818527,
   },
   {
     addedAt: "13 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 45.4211,
-    longitude: -75.6803,
+    latitude: 32.867077099999996,
+    longitude: 35.1818517,
   },
   {
     addedAt: "28 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 45.4111,
-    longitude: -75.6603,
+    latitude: 32.867077099999996,
+    longitude: 35.1818537,
   },
   {
     addedAt: "28 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 45.4111,
-    longitude: -75.6803,
+    latitude: 32.867077099999996,
+    longitude: 35.1818547,
   },
   {
     addedAt: "28 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 45.4111,
-    longitude: -75.6203,
+    latitude: 32.867077099999996,
+    longitude: 35.1818557,
   },
   {
     addedAt: "28 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 45.4011,
-    longitude: -75.6913,
+    latitude: 32.867077099999996,
+    longitude: 35.1818567,
   },
   {
     addedAt: "28 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 45.4221,
-    longitude: -75.6923,
+    latitude: 32.867077099999996,
+    longitude: 35.1818577,
   },
   {
     addedAt: "35 mins ago",
     status: "On transit",
     agent: "Mario",
-    latitude: 45.4212,
-    longitude: -75.6907,
+    latitude: 32.867077099999996,
+    longitude: 35.1818587,
   },
   {
     addedAt: "35 mins ago",
     status: "On transit",
     agent: "Mario",
-    latitude: 45.4212,
-    longitude: -75.6907,
+    latitude: 32.867077099999996,
+    longitude: 35.1818592,
   },
   {
     addedAt: "35 mins ago",
     status: "On transit",
     agent: "Mario",
-    latitude: 45.4212,
-    longitude: -75.6907,
+    latitude: 32.867077099999996,
+    longitude: 35.1818598,
   },
 ];
 
@@ -100,15 +100,18 @@ const Map = (props) => {
     setOwnerInfo,
     packages,
     setPackages,
+    myLocation,
   } = useContext(globalContext);
 
   useEffect(() => {
     getAllPackages(setPackages, auth.token);
   }, []);
 
+  console.log(myLocation);
+
   const [viewport, setViewport] = useState({
-    latitude: 45.4211,
-    longitude: -75.6903,
+    latitude: myLocation.coords.latitude,
+    longitude: myLocation.coords.longitude,
     width: "100vw",
     height: "100vh",
     zoom: 10,

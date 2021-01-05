@@ -9,6 +9,10 @@ const GlobalContextProvider = (props) => {
   const [radius, setRadius] = useState((prev) => prev);
   const [cost, setCost] = useState((prev) => prev);
   const [drawer, setDrawer] = useState(false);
+  const [myLocation, setMyLocation] = useState({
+    latitude: "32.867077099999996",
+    longitude: "35.1818587",
+  });
   const [packages, setPackages] = useState({
     isLoading: false,
     data: null,
@@ -48,6 +52,8 @@ const GlobalContextProvider = (props) => {
         ownerInfo,
         packages,
         setPackages,
+        myLocation,
+        setMyLocation,
       }}
     >
       {props.children}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const PREFIX = "packages-owner-";
+const PREFIX = "packages-agent-";
 
 export const setItemLocal = (key, initialValue) => {
   const prefixedKey = `${PREFIX}${key}`;

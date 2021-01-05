@@ -13,7 +13,7 @@ import useStyles from "./styles";
 import Loader from "../../components/Loader";
 import PackageList from "../../components/PackageList";
 import Filter from "../../components/Filter";
-import AddPackageButton from "../../components/AddPackageButton";
+import SwitchToMap from "../../components/SwitchToMap";
 import AddStoreButton from "../../components/AddStoreButton";
 
 import { getAllPackages } from "../../api/api";
@@ -40,32 +40,24 @@ const Home = (props) => {
 
   if (ownerInfo.isLoading) return <Loader />;
 
-  console.log(ownerInfo);
-  console.log(packages);
-
   return (
     <>
       <Container
         style={{ height: "100%", display: "flex", flexDirection: "column" }}
       >
         <Filter />
-        <button onClick={() => { getAllPackages(setPackages, auth.token) }}>edddd</button>
-        {ownerInfo.data && !ownerInfo.data.businessId && <AddStoreButton />}
 
         {packages && <PackageList data={packages} />}
-
-        {ownerInfo.data && ownerInfo.data.businessId && (
-          <div
-            style={{
-              position: "sticky",
-              right: 25,
-              bottom: 25,
-              alignSelf: "flex-end",
-            }}
-          >
-            <AddPackageButton />
-          </div>
-        )}
+        <div
+          style={{
+            position: "sticky",
+            right: 25,
+            bottom: 25,
+            alignSelf: "flex-end",
+          }}
+        >
+          <SwitchToMap />
+        </div>
       </Container>
     </>
   );

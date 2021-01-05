@@ -10,7 +10,6 @@ const PackageList = (props) => {
     data: { data },
   } = props;
 
-  console.log("====>>>>>>", data);
   return (
     <div style={{ position: "relative" }}>
       {data &&

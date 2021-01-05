@@ -3,8 +3,11 @@ import { Typography, Avatar, Container } from "@material-ui/core";
 import useStyles from "./styles";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import EditIcon from "@material-ui/icons/Edit";
+import moment from "moment";
 
-const PackageHeader = () => {
+const PackageHeader = (props) => {
+  const { name, createdAt } = props.data;
+
   const styles = useStyles();
 
   return (
@@ -16,7 +19,7 @@ const PackageHeader = () => {
           src="/assets/images/package.png"
         />
         <Typography style={{ marginTop: 10 }} variant="h5">
-          Package name
+          {name}
         </Typography>
         <div className={styles.controls}>
           <div className={styles.innerControls}>
@@ -24,7 +27,7 @@ const PackageHeader = () => {
               Created at:
             </Typography>
             <Typography variant="subtitle2" style={{ color: "#5A5A5A" }}>
-              October 18, 2020
+              {moment(createdAt).fromNow()}
             </Typography>
           </div>
           <div>

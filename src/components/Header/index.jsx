@@ -20,7 +20,7 @@ import {
 const Header = (props) => {
   const location = useLocation();
   const routes = [
-    PackageRoute,
+    HomeRoute,
     ProfileRoute,
     RegisterRoute,
     AddPackageRoute,
@@ -51,7 +51,7 @@ const Header = (props) => {
           flexDirection: "row-reverse",
         }}
       >
-        {auth.isAuth && !isBack(location.pathname) ? (
+        {auth.isAuth && isBack(location.pathname) ? (
           <Button style={{ alignSelf: "flex-end" }} onClick={handleDrawer}>
             <MenuIcon fontSize="large" />
           </Button>

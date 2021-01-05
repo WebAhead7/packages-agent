@@ -1,14 +1,21 @@
 import React from "react";
 import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 
 import useStyles from "./styles";
 
 const PackageItem = (props) => {
+  const history = useHistory();
   const { data } = props;
   const styles = useStyles();
+
+  const navigateTo = () => {
+    history.push(`/package/${data._id}`);
+  };
+
   return (
-    <Card className={styles.root}>
+    <Card className={styles.root} onClick={navigateTo}>
       <CardContent className={styles.cover}>
         <img src={"/assets/images/package.png"} className={styles.img} />
       </CardContent>
@@ -16,26 +23,26 @@ const PackageItem = (props) => {
         <CardContent className={styles.content}>
           <div className={styles.innerCard}>
             <Typography variant="caption" className={styles.title}>
-              Added at
+              Store
             </Typography>
             <Typography variant="caption" className={styles.mainTitle}>
-              {moment(data.createdAt).fromNow()}
+              {data.address.name}
             </Typography>
           </div>
           <div className={styles.innerCard}>
             <Typography variant="caption" className={styles.title}>
-              Status
+              To
             </Typography>
             <Typography variant="caption" className={styles.mainTitle}>
-              {data.status}
+              {data.address.address.city}
             </Typography>
           </div>
           <div className={styles.innerCard}>
             <Typography variant="caption" className={styles.title}>
-              Agent
+              Pay
             </Typography>
             <Typography variant="caption" className={styles.mainTitle}>
-              {data.agent ? data.agent : "Pending"}
+              ₪{data.delivery_price}
             </Typography>
           </div>
         </CardContent>
@@ -45,3 +52,5 @@ const PackageItem = (props) => {
 };
 
 export default PackageItem;
+
+// location - to - pay ||| ["name", "mobile", "phone", "address"]
