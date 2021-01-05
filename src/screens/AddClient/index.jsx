@@ -15,7 +15,6 @@ import {
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-import { addClient } from "../../api/api";
 import useStyles from "./styles";
 
 const AddClient = (props) => {

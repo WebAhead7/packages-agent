@@ -11,7 +11,7 @@ const PackageItem = (props) => {
   const styles = useStyles();
 
   const navigateTo = () => {
-    history.push(`/package/${data._id}`);
+    history.push(`/package/${data.businessId}/${data._id}`);
   };
 
   return (

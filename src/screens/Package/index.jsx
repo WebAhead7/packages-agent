@@ -1,13 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Container } from "@material-ui/core";
+import { globalContext } from "../../context/context";
 import useStyles from "./styles";
 import PackageHeader from "../../components/PackageHeader";
 import Loader from "../../components/Loader";
 import PackageTabs from "../../components/PackageTabs";
+//import Links from "../../components/Links";
+import Confirm from "../../components/Confirm";
+import ButtonPackage from "../../components/ButtonPackage";
 import PackageStatus from "../../components/PackageStatus";
 import { getPackageStatus } from "../../api/api";
-import { globalContext } from "../../context/context";
 
 const Package = (props) => {
   const styles = useStyles();
@@ -15,8 +18,8 @@ const Package = (props) => {
   const [currentPackage, setCurrentPackage] = useState(null);
   const { auth, packages } = useContext(globalContext);
   const [value, setValue] = useState(2);
-  const params = useParams();
-
+  //const params = useParams();
+  const params = { id: 1 };
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -37,8 +40,25 @@ const Package = (props) => {
 
   return (
     <Container className={styles.container}>
+
+      {/* <PackageStatus /> */}
+
+      {/* <PackageTabs /> */}
+
+      {/* <Links /> */}
+
+      {/* {currentPackage && <PackageHeader data={currentPackage} />}
+      {status && <PackageStatus status={status} />} */}
+      <Confirm />
+      <ButtonPackage
+        data={packages}
+        text={"Request Package"}
+        handleReq={console.log("11")}
+      />
+
       {currentPackage && <PackageHeader data={currentPackage} />}
       {status && <PackageStatus status={status} />}
+
     </Container>
   );
 };

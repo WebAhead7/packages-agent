@@ -4,46 +4,13 @@ const testToken = getItemLocal("accessToken");
 
 const local = "http://localhost:4000";
 
-export const addBusiness = async (values, token, setAuth, setIsBusiness) => {
-  const options = {
-    url: `${local}/business`,
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(values),
-  };
-
-  try {
-    const response = await fetch(options.url, options);
-
-    const res = await response.json();
-
-    if (res) {
-      setAuth({
-        isAuth: true,
-        error: null,
-        token: res.accessToken,
-        isLoading: false,
-      });
-
-      setItemLocal("accessToken", res.accessToken);
-
-      setIsBusiness(true);
-    }
-  } catch (e) {
-    console.log(e.message);
-  }
-};
-
 export const getAllPackages = async (setPackages, token) => {
   try {
     setPackages({
       isLoading: true,
       data: null,
     });
-
+    
     const response = await fetch(`${local}/package/filtered_packages`, {
       method: "GET",
       headers: {
@@ -71,10 +38,10 @@ export const getAllPackages = async (setPackages, token) => {
   }
 };
 
-export const getOwnerProfile = async (setOwnerInfo, token) => {
+export const getAgentProfile = async (setAgentInfo, token) => {
   const options = {
     method: "GET",
-    url: "http://localhost:4000/owner/profile",
+    url: "http://localhost:4000/agent/profile",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
@@ -84,19 +51,19 @@ export const getOwnerProfile = async (setOwnerInfo, token) => {
   try {
     const res = await fetch(options.url, options);
 
-    setOwnerInfo({
+    setAgentInfo({
       isLoading: true,
       data: null,
     });
 
     const response = await res.json();
 
-    setOwnerInfo({
+    setAgentInfo({
       isLoading: false,
       data: response,
     });
   } catch (e) {
-    setOwnerInfo({
+    setAgentInfo({
       isLoading: false,
       data: null,
     });
@@ -145,39 +112,17 @@ export const signUpApi = async (setAuth, data) => {
   }
 };
 
-export const addClient = async (values, token, handleClose) => {
+// Agent Buttons Fetch in Package screen
+
+export const requestPackage = async (token) => {
   const options = {
-    url: `${local}/business/addclient`,
+    url: `${local}/agent/request_package/:businessId/:packageId`,
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(values),
-  };
-
-  try {
-    const response = await fetch(options.url, options);
-
-    const res = await response.json();
-
-    if (res.status === 201) {
-      handleClose();
-    }
-  } catch (e) {
-    console.log(e.message);
-  }
-};
-
-export const addPackage = async (values, token) => {
-  const options = {
-    url: `${local}/package/add`,
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(values),
+    body: JSON.stringify(),
   };
 
   try {
