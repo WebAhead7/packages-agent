@@ -16,7 +16,8 @@ import Filter from "../../components/Filter";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import StoreIcon from "@material-ui/icons/Store";
 import StoreOverMap from "../../components/StoreOverMap";
-
+import { getMyLocation } from "../../App";
+import axios from "axios";
 import { getAllPackages } from "../../api/api";
 
 const data = [
@@ -24,15 +25,15 @@ const data = [
     addedAt: "10 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 32.867,
-    longitude: 35.1818,
+    latitude: 32.8522,
+    longitude: 35.2013,
   },
   {
     addedAt: "13 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 32.867,
-    longitude: 35.1818,
+    longitude: 32.867,
+    latitude: 35.1818,
   },
   {
     addedAt: "28 mins ago",
@@ -99,32 +100,68 @@ const Map = (props) => {
     ownerInfo,
     setOwnerInfo,
     packages,
+    setMyLocation,
     setPackages,
     myLocation,
   } = useContext(globalContext);
 
-  useEffect(() => {
-    getAllPackages(setPackages, auth.token);
-  }, []);
-
   const [viewport, setViewport] = useState({
-    latitude: myLocation.coords.latitude,
-    longitude: myLocation.coords.longitude,
+    latitude: myLocation?.coords?.latitude,
+    longitude: myLocation?.coords?.longitude,
     width: "100vw",
     height: "100vh",
     zoom: 10,
   });
 
+  const [agentPosition, setAgentPosition] = useState(myLocation);
+
   const [selectedPackage, setSelectedPackage] = useState(null);
+
+  useEffect(() => {
+    getAllPackages(setPackages, auth.token);
+
+    if (!viewport.latitude?.coords?.latitude) {
+      getMyLocation((position) => {
+        setViewport({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          width: "100vw",
+          height: "100vh",
+          zoom: 10,
+        });
+        setAgentPosition({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
+    } else {
+      setAgentPosition({
+        latitude: myLocation.coords.latitude,
+        longitude: myLocation.coords.longitude,
+      });
+    }
+  }, []);
+
+  const ACCESS_TOKEN =
+    "pk.eyJ1IjoiYWxhYWJhc2hpeWkiLCJhIjoiY2tqaXE0cmIwNGk2MDJzbnEydnA1bGNiaiJ9.Ifn9RWUyzZYUirLQTX6GUQ";
+
+  const calculateRoute = (selectedPackage) => {
+    console.log({ agentPosition, selectedPackage });
+    axios
+      .get(
+        `https://api.mapbox.com/directions/v5/mapbox/driving/${agentPosition.longitude},${agentPosition.latitude};${selectedPackage.longitude},${selectedPackage.latitude}?access_token=${ACCESS_TOKEN}`
+      )
+      .then((res) => {
+        console.log(res.data.routes[0].distance);
+      });
+  };
 
   return (
     <>
       <ReactMapGL
         {...viewport}
         // setRTLTextPlugin={true}
-        mapboxApiAccessToken={
-          "pk.eyJ1IjoiYWxhYWJhc2hpeWkiLCJhIjoiY2tqaXE0cmIwNGk2MDJzbnEydnA1bGNiaiJ9.Ifn9RWUyzZYUirLQTX6GUQ"
-        }
+        mapboxApiAccessToken={ACCESS_TOKEN}
         mapStyle="mapbox://styles/mapbox/streets-v11"
         onViewportChange={(viewport) => {
           setViewport(viewport);
@@ -148,6 +185,10 @@ const Map = (props) => {
               onClick={(e) => {
                 e.preventDefault();
                 setSelectedPackage(pack);
+                calculateRoute({
+                  latitude: pack.latitude,
+                  longitude: pack.longitude,
+                });
                 setViewport({
                   latitude: selectedPackage ? pack.latitude : 32.827,
                   longitude: selectedPackage ? pack.longitude : 35.1818,

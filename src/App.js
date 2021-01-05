@@ -10,25 +10,29 @@ import Navigation from "./navigation/Navigation";
 import DrawerNav from "./navigation/Router";
 import Package from "./screens/Package";
 
+export const getMyLocation = (cb) => {
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      cb(position);
+    },
+    (error) => {
+      console.error("Error Code = " + error.code + " - " + error.message);
+    }
+  );
+};
+
 function App(props) {
   const [nav, setNav] = useState(false);
   const { auth, setPackages, myLocation, setMyLocation } = useContext(
     globalContext
   );
 
-  const getMyLocation = () => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setMyLocation(position);
-      },
-      (error) => {
-        console.error("Error Code = " + error.code + " - " + error.message);
-      }
-    );
-  };
+
 
   useEffect(() => {
-    getMyLocation();
+    getMyLocation((location) => {
+      setMyLocation(location)
+    });
   }, []);
 
   useEffect(() => {
@@ -38,8 +42,8 @@ function App(props) {
     <div className="App">
       {/* <Header /> */}
 
-      <Package />
-      {/* <DrawerNav nav={nav} setNav={setNav} /> */}
+      {/* <Package /> */}
+      <DrawerNav nav={nav} setNav={setNav} />
     </div>
   );
 }
