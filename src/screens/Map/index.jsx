@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { globalContext } from "../../context/context";
 import { getOwnerProfile } from "../../api/api";
+import moment from "moment";
 import {
   Button,
   TextField,
@@ -8,7 +9,9 @@ import {
   Typography,
   Container,
   AppBar,
+  IconButton,
 } from "@material-ui/core";
+import GpsFixedIcon from "@material-ui/icons/GpsFixed";
 import useStyles from "./styles";
 import Loader from "../../components/Loader";
 import PackageList from "../../components/PackageList";
@@ -146,13 +149,17 @@ const Map = (props) => {
     "pk.eyJ1IjoiYWxhYWJhc2hpeWkiLCJhIjoiY2tqaXE0cmIwNGk2MDJzbnEydnA1bGNiaiJ9.Ifn9RWUyzZYUirLQTX6GUQ";
 
   const calculateRoute = (selectedPackage) => {
-    console.log({ agentPosition, selectedPackage });
     axios
       .get(
         `https://api.mapbox.com/directions/v5/mapbox/driving/${agentPosition.longitude},${agentPosition.latitude};${selectedPackage.longitude},${selectedPackage.latitude}?access_token=${ACCESS_TOKEN}`
       )
       .then((res) => {
-        console.log(res.data.routes[0].distance);
+        const distance = res.data.routes[0].distance / 1000;
+        const duration = res.data.routes[0].duration / 60;
+
+        setSelectedPackage((prevPackage) => {
+          return { ...prevPackage, distance, duration };
+        });
       });
   };
 
@@ -214,13 +221,38 @@ const Map = (props) => {
               }}
             >
               <div>
-                <h4>Packages: 3</h4>
-                <p>4 KM away</p>
+                {selectedPackage.distance && (
+                  <>
+                    <h4>{selectedPackage.duration.toFixed()} mins</h4>
+
+                    <h4>{selectedPackage.distance.toFixed(2)} KM</h4>
+                  </>
+                )}
               </div>
             </Popup>
           </>
         ) : null}
         {selectedPackage && <StoreOverMap />}
+        <IconButton
+          onClick={() =>
+            setViewport({
+              latitude: agentPosition.latitude,
+              longitude: agentPosition.longitude,
+              width: "100vw",
+              height: "100vh",
+              zoom: 14,
+              transitionDuration: 300,
+            })
+          }
+          style={{
+            background: "#1976D2",
+            position: "fixed",
+            bottom: 20,
+            right: 20,
+          }}
+        >
+          <GpsFixedIcon style={{ color: "#fff" }} />
+        </IconButton>
       </ReactMapGL>
     </>
   );
