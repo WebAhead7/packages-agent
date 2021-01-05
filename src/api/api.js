@@ -51,13 +51,14 @@ export const getAllPackages = async (setPackages, token) => {
       },
     });
 
+
     setPackages({
       isLoading: true,
       data: null,
     });
 
     const res = await response.json();
-
+    console.log(res)
     setPackages({
       isLoading: false,
       data: res,

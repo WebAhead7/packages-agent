@@ -181,22 +181,22 @@ export default function DrawerNav(props) {
               </Switch>
             </>
           ) : (
-            <>
-              <Switch>
-                <Route exact path={HomeRoute}>
-                  <Home />
-                </Route>
-                <Route exact path={MapViewRoute}>
-                  <Map />
-                </Route>
-                <Route path={PackageRoute}>{packages && <Package />}</Route>
-                <Route path={ProfileRoute}>
-                  <Profile />
-                </Route>
-                <Route render={() => <Redirect to="/" />} />
-              </Switch>
-            </>
-          )}
+              <>
+                <Switch>
+                  <Route exact path={HomeRoute}>
+                    <Home />
+                  </Route>
+                  <Route exact path={MapViewRoute}>
+                    <Map />
+                  </Route>
+                  <Route path={PackageRoute}>{packages && <Package />}</Route>
+                  <Route path={ProfileRoute}>
+                    <Profile />
+                  </Route>
+                  <Route render={() => <Redirect to="/" />} />
+                </Switch>
+              </>
+            )}
         </React.Fragment>
       </Router>
     </div>

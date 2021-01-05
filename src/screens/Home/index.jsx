@@ -37,15 +37,17 @@ const Home = (props) => {
       getOwnerProfile(setOwnerInfo, auth.token);
     }
   }, []);
+  console.log(ownerInfo);
 
   if (ownerInfo.isLoading) return <Loader />;
-
+  console.log(1, packages);
   return (
     <>
       <Container
         style={{ height: "100%", display: "flex", flexDirection: "column" }}
       >
         <Filter />
+
 
         {packages && <PackageList data={packages} />}
         <div
