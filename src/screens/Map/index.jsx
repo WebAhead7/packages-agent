@@ -24,71 +24,71 @@ const data = [
     addedAt: "10 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 32.867077099999996,
-    longitude: 35.1818527,
+    latitude: 32.867,
+    longitude: 35.1818,
   },
   {
     addedAt: "13 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 32.867077099999996,
-    longitude: 35.1818517,
+    latitude: 32.867,
+    longitude: 35.1818,
   },
   {
     addedAt: "28 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 32.867077099999996,
-    longitude: 35.1818537,
+    latitude: 32.867,
+    longitude: 35.1818,
   },
   {
     addedAt: "28 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 32.867077099999996,
-    longitude: 35.1818547,
+    latitude: 32.867,
+    longitude: 35.1819,
   },
   {
     addedAt: "28 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 32.867077099999996,
-    longitude: 35.1818557,
+    latitude: 32.8671,
+    longitude: 35.1817,
   },
   {
     addedAt: "28 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 32.867077099999996,
-    longitude: 35.1818567,
+    latitude: 32.8673,
+    longitude: 35.1815,
   },
   {
     addedAt: "28 mins ago",
     status: "Pending",
     agent: "Pending",
-    latitude: 32.867077099999996,
-    longitude: 35.1818577,
+    latitude: 32.867,
+    longitude: 35.1818,
   },
   {
     addedAt: "35 mins ago",
     status: "On transit",
     agent: "Mario",
-    latitude: 32.867077099999996,
-    longitude: 35.1818587,
+    latitude: 32.827,
+    longitude: 35.1876,
   },
   {
     addedAt: "35 mins ago",
     status: "On transit",
     agent: "Mario",
-    latitude: 32.867077099999996,
-    longitude: 35.1818592,
+    latitude: 32.8675,
+    longitude: 35.1838,
   },
   {
     addedAt: "35 mins ago",
     status: "On transit",
     agent: "Mario",
-    latitude: 32.867077099999996,
-    longitude: 35.1818598,
+    latitude: 32.84703,
+    longitude: 35.1811,
   },
 ];
 
@@ -107,8 +107,6 @@ const Map = (props) => {
     getAllPackages(setPackages, auth.token);
   }, []);
 
-  console.log(myLocation);
-
   const [viewport, setViewport] = useState({
     latitude: myLocation.coords.latitude,
     longitude: myLocation.coords.longitude,
@@ -123,6 +121,7 @@ const Map = (props) => {
     <>
       <ReactMapGL
         {...viewport}
+        // setRTLTextPlugin={true}
         mapboxApiAccessToken={
           "pk.eyJ1IjoiYWxhYWJhc2hpeWkiLCJhIjoiY2tqaXE0cmIwNGk2MDJzbnEydnA1bGNiaiJ9.Ifn9RWUyzZYUirLQTX6GUQ"
         }
@@ -150,8 +149,8 @@ const Map = (props) => {
                 e.preventDefault();
                 setSelectedPackage(pack);
                 setViewport({
-                  latitude: selectedPackage ? pack.latitude : 45.4212,
-                  longitude: selectedPackage ? pack.longitude : -75.6903,
+                  latitude: selectedPackage ? pack.latitude : 32.827,
+                  longitude: selectedPackage ? pack.longitude : 35.1818,
                   width: "100vw",
                   height: "100vh",
                   zoom: 14,

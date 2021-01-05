@@ -37,7 +37,7 @@ const Package = (props) => {
 
   return (
     <Container className={styles.container}>
-      <PackageHeader data={currentPackage} />
+      {currentPackage && <PackageHeader data={currentPackage} />}
       {status && <PackageStatus status={status} />}
     </Container>
   );
