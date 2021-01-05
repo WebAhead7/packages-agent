@@ -40,6 +40,7 @@ const Package = (props) => {
 
   return (
     <Container className={styles.container}>
+
       {/* <PackageStatus /> */}
 
       {/* <PackageTabs /> */}
@@ -54,6 +55,10 @@ const Package = (props) => {
         text={"Request Package"}
         handleReq={console.log("11")}
       />
+
+      {currentPackage && <PackageHeader data={currentPackage} />}
+      {status && <PackageStatus status={status} />}
+
     </Container>
   );
 };
