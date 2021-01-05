@@ -25,11 +25,11 @@ const GlobalContextProvider = (props) => {
     isLoading: false,
   });
 
-  useEffect(() => {
-    if (auth.token === null && token !== null) {
-      setAuth({ isAuth: true, error: null, token: token, isLoading: false });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (auth.token === null && token !== null) {
+  //     setAuth({ isAuth: true, error: null, token: token, isLoading: false });
+  //   }
+  // }, []);
 
   return (
     <globalContext.Provider

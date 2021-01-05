@@ -20,6 +20,7 @@ import {
 import Home from "../../screens/Home";
 import Map from "../../screens/Map";
 
+import StoreScreen from "../../screens/StoreScreen";
 import Package from "../../screens/Package";
 import Login from "../../screens/Login";
 import Profile from "../../screens/Profile";
@@ -35,7 +36,8 @@ export const LoginRoute = "/login";
 export const ProfileRoute = "/profile";
 export const RegisterRoute = "/register";
 export const AddPackageRoute = "/addBackage";
-export const MapView = "/mapview";
+export const MapViewRoute = "/mapview";
+export const StoreRoute = "./storeview";
 export const AddBusinessRoute = "/add_business";
 
 const useStyles = makeStyles({
@@ -94,7 +96,7 @@ export default function DrawerNav(props) {
                   <ListItemText primary={"Home"} />
                 </ListItem>
               </Link>
-              <HomeIcon />
+
               {/* <Link
                 to={PackageRoute}
                 className={styles.link}
@@ -121,7 +123,19 @@ export default function DrawerNav(props) {
                 </ListItem>
               </Link>
               <Link
-                to={MapView}
+                to={StoreRoute}
+                className={styles.link}
+                style={{ textDecoration: "none", color: "#000" }}
+              >
+                <ListItem button onClick={toggleDrawer}>
+                  <ListItemIcon>
+                    <InfoIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Store"} />
+                </ListItem>
+              </Link>
+              <Link
+                to={MapViewRoute}
                 className={styles.link}
                 style={{ textDecoration: "none", color: "#000" }}
               >
@@ -180,6 +194,7 @@ export default function DrawerNav(props) {
                 <Route path={RegisterRoute}>
                   <Register />
                 </Route>
+
                 <Route render={() => <Redirect to="/" />} />
               </Switch>
             </>
@@ -214,6 +229,7 @@ export default function DrawerNav(props) {
                 </Switch>
               </>
             )}
+
         </React.Fragment>
       </Router>
     </div>
