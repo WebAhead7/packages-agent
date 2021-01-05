@@ -20,7 +20,6 @@ import {
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import useStyles from "./styles";
-import { addBusiness } from "../../api/api";
 
 const categories = [
   {

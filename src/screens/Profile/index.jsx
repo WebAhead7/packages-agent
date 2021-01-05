@@ -7,12 +7,12 @@ import ProfileInfo from "../../components/ProfileInfo";
 
 const Package = (props) => {
   const styles = useStyles();
-  const { ownerInfo } = useContext(globalContext);
+  const { agentInfo } = useContext(globalContext);
 
   return (
     <Container className={styles.container}>
-      {ownerInfo && <ProfileHeader data={ownerInfo} />}
-      {ownerInfo && <ProfileInfo data={ownerInfo} />}
+      {agentInfo && <ProfileHeader data={agentInfo} />}
+      {agentInfo && <ProfileInfo data={agentInfo} />}
     </Container>
   );
 };

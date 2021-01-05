@@ -28,11 +28,11 @@ const PackageHeader = () => {
             </Typography>
           </div>
           <div>
-            <EditIcon
+            {/* <EditIcon
               fontSize="large"
               style={{ marginRight: 20, color: "#11890F" }}
             />
-            <DeleteForeverIcon fontSize="large" style={{ color: "#FF0000" }} />
+            <DeleteForeverIcon fontSize="large" style={{ color: "#FF0000" }} /> */}
           </div>
         </div>
       </div>

@@ -6,13 +6,15 @@ import useLocalStorage from "./hooks/useLocalStorage";
 
 import Navigation from "./navigation/Navigation";
 import DrawerNav from "./navigation/Router";
+import Package from "./screens/Package";
 
 function App(props) {
   const [nav, setNav] = useState(false);
   return (
     <div className="App">
       {/* <Header /> */}
-      <DrawerNav nav={nav} setNav={setNav} />
+      {/* <DrawerNav nav={nav} setNav={setNav} /> */}
+      <Package />
     </div>
   );
 }

@@ -1,10 +1,16 @@
 import React from "react";
 import { Container } from "@material-ui/core";
+import { globalContext } from "../../context/context";
 import useStyles from "./styles";
 import PackageHeader from "../../components/PackageHeader";
 import PackageTabs from "../../components/PackageTabs";
+//import Links from "../../components/Links";
+import Confirm from "../../components/Confirm";
+import ButtonPackage from "../../components/ButtonPackage";
 
 const Package = (props) => {
+  const { agentInfo } = useContext(globalContext);
+
   const [value, setValue] = React.useState(2);
 
   const styles = useStyles();
@@ -16,7 +22,10 @@ const Package = (props) => {
       <PackageHeader />
       {/* <PackageStatus /> */}
 
-      <PackageTabs />
+      {/* <PackageTabs /> */}
+      <Confirm />
+      {/* <Links /> */}
+      <ButtonPackage text={"Request Package"} handleReq={console.log("11")} />
     </Container>
   );
 };

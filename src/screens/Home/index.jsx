@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { globalContext } from "../../context/context";
-import { getOwnerProfile } from "../../api/api";
+import { getAgentProfile } from "../../api/api";
 import {
   Button,
   TextField,
@@ -22,8 +22,8 @@ const Home = (props) => {
   const {
     auth,
     setAuth,
-    ownerInfo,
-    setOwnerInfo,
+    agentInfo,
+    setAgentInfo,
     packages,
     setPackages,
   } = useContext(globalContext);
@@ -33,14 +33,14 @@ const Home = (props) => {
   }, []);
 
   useEffect(() => {
-    if (!ownerInfo.data) {
-      getOwnerProfile(setOwnerInfo, auth.token);
+    if (!agentInfo.data) {
+      getAgentProfile(setAgentInfo, auth.token);
     }
   }, []);
 
-  if (ownerInfo.isLoading) return <Loader />;
+  if (agentInfo.isLoading) return <Loader />;
 
-  console.log(ownerInfo);
+  console.log(agentInfo);
 
   return (
     <>
@@ -48,11 +48,10 @@ const Home = (props) => {
         style={{ height: "100%", display: "flex", flexDirection: "column" }}
       >
         <Filter />
-        {ownerInfo.data && !ownerInfo.data.businessId && <AddStoreButton />}
 
         {packages && <PackageList data={packages} />}
 
-        {ownerInfo.data && ownerInfo.data.businessId && (
+        {/* {ownerInfo.data && ownerInfo.data.businessId && (
           <div
             style={{
               position: "sticky",
@@ -63,7 +62,7 @@ const Home = (props) => {
           >
             <AddPackageButton />
           </div>
-        )}
+        )} */}
       </Container>
     </>
   );
