@@ -14,9 +14,10 @@ import Loader from "../../components/Loader";
 import PackageList from "../../components/PackageList";
 import Filter from "../../components/Filter";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import StoreIcon from "@material-ui/icons/Store";
+import StoreOverMap from "../../components/StoreOverMap";
 
 import { getAllPackages } from "../../api/api";
-import { BorderColor } from "@material-ui/icons";
 
 const data = [
   {
@@ -138,9 +139,8 @@ const Map = (props) => {
                 borderRadius: 40,
                 background: "#000",
                 color: "#fff",
-                width: 80,
-                height: 80,
-                fontSize: 18,
+                width: 60,
+                height: 60,
               }}
               className="marker-btn"
               onClick={(e) => {
@@ -156,43 +156,28 @@ const Map = (props) => {
                 });
               }}
             >
-              Store
+              <StoreIcon fontSize="large" />
             </button>
           </Marker>
         ))}
 
         {selectedPackage ? (
-          <Popup
-            latitude={selectedPackage.latitude}
-            longitude={selectedPackage.longitude}
-            onClose={() => {
-              setSelectedPackage(null);
-            }}
-          >
-            <div>
-              <h2>{selectedPackage.status}</h2>
-              <p>{selectedPackage.addedAt}</p>
-            </div>
-          </Popup>
+          <>
+            <Popup
+              latitude={selectedPackage.latitude}
+              longitude={selectedPackage.longitude}
+              onClose={() => {
+                setSelectedPackage(null);
+              }}
+            >
+              <div>
+                <h4>Packages: 3</h4>
+                <p>4 KM away</p>
+              </div>
+            </Popup>
+          </>
         ) : null}
-        {selectedPackage && (
-          <div
-            style={{
-              width: "100%",
-              position: "fixed",
-              top: 60,
-              height: 50,
-              background: "#fff",
-              borderColor: "#000",
-              borderWidth: 1,
-              borderRadius: 15,
-            }}
-          >
-            {`${selectedPackage.status}
-
-            ${selectedPackage.addedAt}`}
-          </div>
-        )}
+        {selectedPackage && <StoreOverMap />}
       </ReactMapGL>
     </>
   );

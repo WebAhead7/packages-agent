@@ -17,17 +17,17 @@ const GlobalContextProvider = (props) => {
   });
   const token = getItemLocal("accessToken");
   const [auth, setAuth] = useState({
-    isAuth: false,
+    isAuth: true,
     error: null,
     token: null,
     isLoading: false,
   });
 
-  useEffect(() => {
-    if (auth.token === null && token !== null) {
-      setAuth({ isAuth: true, error: null, token: token, isLoading: false });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (auth.token === null && token !== null) {
+  //     setAuth({ isAuth: true, error: null, token: token, isLoading: false });
+  //   }
+  // }, []);
 
   return (
     <globalContext.Provider
