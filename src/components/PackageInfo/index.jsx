@@ -16,7 +16,7 @@ const fakedata = {
 
 const PackageInfo = (props) => {
   const styles = useStyles();
-  const { fakedata } = props;
+  // const { fakedata } = props;
 
   return (
     <div style={{ width: "100%" }}>

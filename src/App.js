@@ -38,8 +38,8 @@ function App(props) {
     <div className="App">
       {/* <Header /> */}
 
-      <Package />
-      {/* <DrawerNav nav={nav} setNav={setNav} /> */}
+      {/* <Package /> */}
+      <DrawerNav nav={nav} setNav={setNav} />
     </div>
   );
 }
