@@ -3,12 +3,18 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   container: {
     borderWidth: 1,
-    borderColor: "#000",
+    paddingTop: 20,
+    paddingBottom: 20,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignContent: "center",
+    borderRadius: 7,
     width: "100%",
+    boxShadow: "1px 1px 25px #9E9E9E",
+    borderWidth: 1,
+    borderColor: "#9E9E9E",
+    background: "#EEEEEE",
   },
 
   header: {

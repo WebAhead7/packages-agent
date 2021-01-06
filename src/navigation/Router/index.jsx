@@ -10,6 +10,8 @@ import { globalContext } from "../../context/context";
 import { removeItemLocal } from "../../hooks/localStorage";
 import HomeIcon from "@material-ui/icons/Home";
 import InfoIcon from "@material-ui/icons/Info";
+import PersonIcon from "@material-ui/icons/Person";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import {
   BrowserRouter as Router,
   Switch,
@@ -94,25 +96,11 @@ export default function DrawerNav(props) {
 
                 <ListItem button onClick={toggleDrawer}>
                   <ListItemIcon>
-                    <HomeIcon />
+                    <HomeIcon style={{ color: "#1976D2" }} />
                   </ListItemIcon>
                   <ListItemText primary={"Home"} />
                 </ListItem>
               </Link>
-
-              {/* <Link
-                to={PackageRoute}
-                className={styles.link}
-                style={{ textDecoration: "none", color: "#000" }}
-              >
-                <ListItem button onClick={toggleDrawer}>
-                  <ListItemIcon>
-                    <InfoIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Package"} />
-                </ListItem>
-              </Link> */}
-
               <Link
                 to={ProfileRoute}
                 className={styles.link}
@@ -120,36 +108,11 @@ export default function DrawerNav(props) {
               >
                 <ListItem button onClick={toggleDrawer}>
                   <ListItemIcon>
-                    <InfoIcon />
+                    <PersonIcon style={{ color: "#1976D2" }} />
                   </ListItemIcon>
                   <ListItemText primary={"Profile"} />
                 </ListItem>
               </Link>
-
-              {/* <Link
-                to={''}
-                className={styles.link}
-                style={{ textDecoration: "none", color: "#000" }}
-              >
-                <ListItem button onClick={toggleDrawer}>
-                  <ListItemIcon>
-                    <InfoIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Add Package"} />
-                </ListItem>
-              </Link>
-              <Link
-                to={}
-                className={styles.link}
-                style={{ textDecoration: "none", color: "#000" }}
-              >
-                <ListItem button onClick={toggleDrawer}>
-                  <ListItemIcon>
-                    <InfoIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Add Business"} />
-                </ListItem>
-              </Link> */}
               <ListItem
                 button
                 onClick={() => {
@@ -158,7 +121,7 @@ export default function DrawerNav(props) {
                 }}
               >
                 <ListItemIcon>
-                  <InfoIcon />
+                  <ExitToAppIcon style={{ color: "#1976D2" }} />
                 </ListItemIcon>
                 <ListItemText primary={"Logout"} />
               </ListItem>

@@ -26,15 +26,28 @@ const Home = (props) => {
     setPackages,
   } = useContext(globalContext);
 
+  const [myPackages, setMyPackages] = useState(null);
+  const [switchOn, setSwitchOn] = useState(false);
+
   useEffect(() => {
     getAllPackages(setPackages, auth.token);
-  }, []);
+  }, [switchOn]);
+
+  useEffect(() => {
+    if (packages.data) {
+      const data = packages.data.filter((p) => p.status === "Pending");
+      setMyPackages({
+        isLoading: false,
+        data: data,
+      });
+    }
+  }, [switchOn]);
 
   useEffect(() => {
     if (!agentInfo.data) {
       getAgentProfile(setAgentInfo, auth.token);
     }
-  }, []);
+  }, [switchOn]);
 
   if (agentInfo.isLoading) return <Loader />;
 
@@ -44,8 +57,15 @@ const Home = (props) => {
         style={{ height: "100%", display: "flex", flexDirection: "column" }}
       >
         <Filter />
+        <Button color="secondary" onClick={() => setSwitchOn((prev) => !prev)}>
+          {switchOn ? "All" : "My packages"}
+        </Button>
+        {packages.data && !switchOn && <PackageList data={packages} />}
 
-        {packages && <PackageList data={packages} />}
+        {/* {packages.data && myPackages.data && !switchOn && (
+          <PackageList data={myPackages} />
+        )} */}
+
         <div
           style={{
             position: "sticky",

@@ -11,6 +11,9 @@ import Links from "../../components/Links";
 import Confirm from "../../components/Confirm";
 import ButtonPackage from "../../components/ButtonPackage";
 import PackageStatus from "../../components/PackageStatus";
+import PackageDelivered from "../../components/PackageDelivered";
+import Timer from "../../components/Timer";
+
 import {
   getPackageStatus,
   getOnePackage,
@@ -29,7 +32,9 @@ const Package = (props) => {
   const [status, setStatus] = useState(null);
   const [message, setMessage] = useState("");
 
-  const forceUpdate = useForceUpdate();
+  const isTimer = status === "In proccess";
+
+  console.log(isTimer);
 
   const {
     auth,
@@ -45,19 +50,14 @@ const Package = (props) => {
 
   useEffect(() => {
     if (packages.data) {
-      // const findPackage = (id) => {
-      //   const curPackage = packages.data.find((p) => p._id === id);
-      //   setCurrentPackage(curPackage);
-      // };
-      // findPackage(params.id);
+      getOnePackage(
+        params.id,
+        auth.token,
+        setCurrentPackage,
+        currentPackage,
+        setStatus
+      );
     }
-    getOnePackage(
-      params.id,
-      auth.token,
-      setCurrentPackage,
-      currentPackage,
-      setStatus
-    );
 
     return () => setRefresh(null);
   }, [refresh]);
@@ -66,9 +66,11 @@ const Package = (props) => {
 
   return (
     <Container className={styles.container}>
-      {currentPackage.data && <PackageHeader data={currentPackage.data} />}
+      {currentPackage.data && status !== "Delivered" && (
+        <PackageHeader data={currentPackage.data} />
+      )}
 
-      {status && <PackageStatus status={status} />}
+      {status && status !== "Delivered" && <PackageStatus status={status} />}
 
       {(status == "Pending" || status == "On transit") && (
         <PackageInfo data={currentPackage.data} />
@@ -83,22 +85,11 @@ const Package = (props) => {
         />
       )}
 
+      {status && status === "Delivered" && <PackageDelivered />}
+
+      {currentPackage.data && isTimer && <Timer data={currentPackage.data} />}
+
       {/* {<Links />} */}
-
-      {/* <Button
-        color="primary"
-        onClick={() => {
-          requestPackage(
-            currentPackage.data.businessId,
-            currentPackage.data._id,
-            auth.token,
-            setRefresh
-          );
-        }}
-      >
-        Request package
-      </Button> */}
-
       {status && currentPackage.data && (
         <ButtonPackage
           packageId={params.id}

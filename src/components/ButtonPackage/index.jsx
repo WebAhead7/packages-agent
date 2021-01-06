@@ -20,9 +20,16 @@ import {
   confirmClient,
   getOnePackage,
 } from "../../api/api";
+import { useHistory } from "react-router-dom";
 
 const ButtonPackage = (props) => {
   const { setCurrentPackage, currentPackage, packageId, token, status } = props;
+
+  const history = useHistory();
+
+  const navigateBack = () => {
+    history.push("/");
+  };
 
   const flag = false;
   const statusFunctions = {
@@ -49,7 +56,7 @@ const ButtonPackage = (props) => {
       content: "Confirm",
     },
     Delivered: {
-      function: 3,
+      function: () => navigateBack(),
       content: "Done",
     },
   };
