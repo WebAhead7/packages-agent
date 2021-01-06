@@ -17,7 +17,7 @@ import Slider from "@material-ui/core/Slider";
 
 import { useStyles_type, useStyles_radius, useStyles_cost } from "./styles";
 
-const Filter = () => {
+const Filter = (radius, setRadius) => {
   const classes_type = useStyles_type();
   const classes_radius = useStyles_radius();
   // const classes_cost = useStyles_cost();
@@ -26,7 +26,7 @@ const Filter = () => {
   // const { cost, setCost } = useContext(globalContext);
 
   const [type, setType] = useState("all");
-  const [radius, setRadius] = useState(null);
+  // const [radius, setRadius] = useState(null);
   const [cost, setCost] = useState(null);
 
   const handlerType = (e, v) => {
