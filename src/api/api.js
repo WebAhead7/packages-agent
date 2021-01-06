@@ -39,6 +39,44 @@ export const getAllPackages = async (setPackages, token) => {
   }
 };
 
+export const getAllPackagesByRadius = async (setPackages, radius, myLocation, token) => {
+  console.log(radius, myLocation, token)
+
+  try {
+
+    setPackages({
+      isLoading: true,
+      data: null,
+    });
+
+    const response = await axios.post(`${local}/package/fr/${12}`, myLocation,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        }
+      })
+
+    setPackages({
+      isLoading: true,
+      data: null,
+    });
+
+    const res = await response.json();
+
+    setPackages({
+      isLoading: false,
+      data: res,
+    });
+
+  } catch (err) {
+    console.log(err);
+    setPackages({
+      isLoading: false,
+      data: null,
+    });
+  }
+};
+
 export const getAgentProfile = async (setAgentInfo, token) => {
   const options = {
     method: "GET",

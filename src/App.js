@@ -4,8 +4,7 @@ import Home from "./screens/Home";
 import Header from "./components/Header";
 import useLocalStorage from "./hooks/useLocalStorage";
 import { globalContext } from "./context/context";
-import { getAllPackages } from "./api/api";
-
+import { getAllPackages, getAllPackagesByRadius } from "./api/api";
 import Navigation from "./navigation/Navigation";
 import DrawerNav from "./navigation/Router";
 import Package from "./screens/Package";
@@ -23,7 +22,7 @@ export const getMyLocation = (cb) => {
 
 function App(props) {
   const [nav, setNav] = useState(false);
-  const { auth, setPackages, myLocation, setMyLocation } = useContext(
+  const { auth, setPackages, myLocation, setMyLocation, radius, setRadius } = useContext(
     globalContext
   );
 
@@ -32,12 +31,12 @@ function App(props) {
   useEffect(() => {
     getMyLocation((location) => {
       setMyLocation(location)
+      console.log(auth)
+      getAllPackagesByRadius(setPackages, radius, location, auth.token);
     });
+
   }, []);
 
-  useEffect(() => {
-    getAllPackages(setPackages, auth.token);
-  }, []);
   return (
     <div className="App">
       {/* <Header /> */}

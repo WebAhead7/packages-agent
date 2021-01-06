@@ -15,6 +15,7 @@ import PackageList from "../../components/PackageList";
 import Filter from "../../components/Filter";
 import SwitchToMap from "../../components/SwitchToMap";
 import { getAllPackages } from "../../api/api";
+import { getAllPackagesByRadius } from "../../api/api";
 
 const Home = (props) => {
   const {
@@ -24,11 +25,13 @@ const Home = (props) => {
     setAgentInfo,
     packages,
     setPackages,
+    myLocation,
+    radius,
+    setRadius
   } = useContext(globalContext);
 
-  useEffect(() => {
-    getAllPackages(setPackages, auth.token);
-  }, []);
+
+  console.log(packages)
 
   useEffect(() => {
     if (!agentInfo.data) {
@@ -43,9 +46,9 @@ const Home = (props) => {
       <Container
         style={{ height: "100%", display: "flex", flexDirection: "column" }}
       >
-        <Filter />
+        <Filter setRadius={setRadius} radius={radius} />
 
-        {packages && <PackageList data={packages} />}
+        {/* {packages && packages.data && <PackageList data={packages} />} */}
         <div
           style={{
             position: "sticky",
