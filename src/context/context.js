@@ -34,7 +34,6 @@ const GlobalContextProvider = (props) => {
     token: null,
     isLoading: false,
   });
-
   useEffect(() => {
     if (auth.token === null && token !== null) {
       setAuth({ isAuth: true, error: null, token: token, isLoading: false });
@@ -62,6 +61,8 @@ const GlobalContextProvider = (props) => {
         setMyLocation,
         currentPackage,
         setCurrentPackage,
+        radius,
+        setRadius
       }}
     >
       {props.children}

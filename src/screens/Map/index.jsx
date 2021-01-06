@@ -121,7 +121,7 @@ const Map = (props) => {
   const [selectedPackage, setSelectedPackage] = useState(null);
 
   useEffect(() => {
-    getAllPackages(setPackages, auth.token);
+    // getAllPackages(setPackages, auth.token);
 
     if (!viewport.latitude?.coords?.latitude) {
       getMyLocation((position) => {

@@ -15,6 +15,7 @@ import PackageList from "../../components/PackageList";
 import Filter from "../../components/Filter";
 import SwitchToMap from "../../components/SwitchToMap";
 import { getAllPackages } from "../../api/api";
+import { getAllPackagesByRadius } from "../../api/api";
 
 const Home = (props) => {
   const {
@@ -24,24 +25,27 @@ const Home = (props) => {
     setAgentInfo,
     packages,
     setPackages,
+    myLocation,
+    radius,
+    setRadius,
   } = useContext(globalContext);
 
   const [myPackages, setMyPackages] = useState(null);
   const [switchOn, setSwitchOn] = useState(false);
 
-  useEffect(() => {
-    getAllPackages(setPackages, auth.token);
-  }, [switchOn]);
+  // useEffect(() => {
+  //   getAllPackages(setPackages, auth.token);
+  // }, [switchOn]);
 
-  useEffect(() => {
-    if (packages.data) {
-      const data = packages.data.filter((p) => p.status === "Pending");
-      setMyPackages({
-        isLoading: false,
-        data: data,
-      });
-    }
-  }, [switchOn]);
+  // useEffect(() => {
+  //   if (packages.data) {
+  //     const data = packages.data.filter((p) => p.status === "Pending");
+  //     setMyPackages({
+  //       isLoading: false,
+  //       data: data,
+  //     });
+  //   }
+  // }, [switchOn]);
 
   useEffect(() => {
     if (!agentInfo.data) {
@@ -56,11 +60,15 @@ const Home = (props) => {
       <Container
         style={{ height: "100%", display: "flex", flexDirection: "column" }}
       >
-        <Filter />
+        {/* <Filter /> */}
+        {/* <Filter setRadius={setRadius} radius={radius} /> */}
         <Button color="secondary" onClick={() => setSwitchOn((prev) => !prev)}>
           {switchOn ? "All" : "My packages"}
         </Button>
-        {packages.data && !switchOn && <PackageList data={packages} />}
+
+        {packages.data && packages.data.length !== 0 && (
+          <PackageList data={packages} />
+        )}
 
         {/* {packages.data && myPackages.data && !switchOn && (
           <PackageList data={myPackages} />

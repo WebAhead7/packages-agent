@@ -39,6 +39,58 @@ export const getAllPackages = async (setPackages, token) => {
   }
 };
 
+export const getAllPackagesByRadius = async (
+  setPackages,
+  radius,
+  myLocation,
+  token
+) => {
+  console.log("IN HEREEEEE");
+
+  const options = {
+    method: "POST",
+    url: "http://localhost:4000/package/fr/12",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      latitude: myLocation.coords.latitude,
+      longitude: myLocation.coords.longitude,
+    }),
+  };
+
+  console.log(myLocation.coords);
+  try {
+    setPackages({
+      isLoading: true,
+      data: null,
+    });
+
+    const response = await fetch(options.url, options);
+
+    setPackages({
+      isLoading: true,
+      data: null,
+    });
+
+    const res = await response.json();
+
+    console.log(res);
+
+    setPackages({
+      isLoading: false,
+      data: res,
+    });
+  } catch (err) {
+    console.log(err);
+    setPackages({
+      isLoading: false,
+      data: null,
+    });
+  }
+};
+
 export const getAgentProfile = async (setAgentInfo, token) => {
   const options = {
     method: "GET",

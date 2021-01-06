@@ -11,7 +11,7 @@ const PackageList = (props) => {
     data: { data },
   } = props;
 
-  console.log(props);
+  console.log(data);
 
   if (!data) return <Loader />;
 

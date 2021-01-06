@@ -4,8 +4,7 @@ import Home from "./screens/Home";
 import Header from "./components/Header";
 import useLocalStorage from "./hooks/useLocalStorage";
 import { globalContext } from "./context/context";
-import { getAllPackages } from "./api/api";
-
+import { getAllPackages, getAllPackagesByRadius } from "./api/api";
 import Navigation from "./navigation/Navigation";
 import DrawerNav from "./navigation/Router";
 import Package from "./screens/Package";
@@ -23,26 +22,29 @@ export const getMyLocation = (cb) => {
 
 function App(props) {
   const [nav, setNav] = useState(false);
-  const { auth, setPackages, myLocation, setMyLocation } = useContext(
-    globalContext
-  );
-
-
+  const {
+    auth,
+    setPackages,
+    myLocation,
+    setMyLocation,
+    radius,
+    setRadius,
+  } = useContext(globalContext);
 
   useEffect(() => {
     getMyLocation((location) => {
-      setMyLocation(location)
+      setMyLocation(location);
     });
   }, []);
 
   useEffect(() => {
-    getAllPackages(setPackages, auth.token);
-  }, []);
+    if (auth.token && myLocation) {
+      getAllPackagesByRadius(setPackages, radius, myLocation, auth.token);
+    }
+  }, [myLocation]);
+
   return (
     <div className="App">
-      {/* <Header /> */}
-
-      {/* <Package /> */}
       <DrawerNav nav={nav} setNav={setNav} />
     </div>
   );
