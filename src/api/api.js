@@ -1,4 +1,5 @@
 import { setItemLocal, getItemLocal } from "../hooks/localStorage";
+import axios from "axios";
 
 const testToken = getItemLocal("accessToken");
 
@@ -18,14 +19,13 @@ export const getAllPackages = async (setPackages, token) => {
       },
     });
 
-
     setPackages({
       isLoading: true,
       data: null,
     });
 
     const res = await response.json();
-    console.log(res)
+
     setPackages({
       isLoading: false,
       data: res,
@@ -117,19 +117,21 @@ export const signUpApi = async (setAuth, data) => {
 
 export const requestPackage = async (props) => {
   const options = {
-    url: `${local}/agent/request_package/:${props.businessId}/:${props.packageId}`,
+    url: `${local}/agent/request_package/${props.businessId}/${props.packageId}`,
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${props.token}`,
     },
-    body: JSON.stringify({ status: "InProcess" })
+    body: JSON.stringify({ status: "In proccess" }),
   };
 
   try {
     const response = await fetch(options.url, options);
 
     const res = await response.json();
+
+    props.setRefresh((prev) => prev + 1);
   } catch (e) {
     console.log(e.message);
   }
@@ -145,7 +147,7 @@ export const getPackageStatus = async (token, packageId, setStatus) => {
       },
     });
     const res = await response.json();
-    console.log(res);
+
     setStatus(res.status);
   } catch (err) {
     console.log(err);
@@ -154,19 +156,21 @@ export const getPackageStatus = async (token, packageId, setStatus) => {
 
 export const pickUp = async (props) => {
   const options = {
-    url: `${local}/package/status/:${props.businessId}/:${props.packageId}`,
+    url: `${local}/package/status/${props.businessId}/${props.packageId}`,
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${props.token}`,
     },
-    body: JSON.stringify({ status: "Waiting to be delivered" })
+    body: JSON.stringify({ status: "Waiting to be delivered" }),
   };
 
   try {
     const response = await fetch(options.url, options);
 
     const res = await response.json();
+
+    props.setRefresh((prev) => prev + 1);
   } catch (e) {
     console.log(e.message);
   }
@@ -180,13 +184,18 @@ export const confirmOwner = async (props) => {
       "Content-Type": "application/json",
       authorization: `Bearer ${props.token}`,
     },
-    body: JSON.stringify({ status: "On transit", confirmation: props.confirmationCode })
+    body: JSON.stringify({
+      status: "On transit",
+      confirmation: props.confirmationCode,
+    }),
   };
 
   try {
     const response = await fetch(options.url, options);
 
     const res = await response.json();
+
+    props.setRefresh((prev) => prev + 1);
   } catch (e) {
     console.log(e.message);
   }
@@ -200,13 +209,18 @@ export const confirmClient = async (props) => {
       "Content-Type": "application/json",
       authorization: `Bearer ${props.token}`,
     },
-    body: JSON.stringify({ status: "Delivered", confirmation: props.confirmationCode })
+    body: JSON.stringify({
+      status: "Delivered",
+      confirmation: props.confirmationCode,
+    }),
   };
 
   try {
     const response = await fetch(options.url, options);
 
     const res = await response.json();
+
+    props.setRefresh((prev) => prev + 1);
   } catch (e) {
     console.log(e.message);
   }
@@ -220,14 +234,78 @@ export const UpdateWaiting = async (props) => {
       "Content-Type": "application/json",
       authorization: `Bearer ${props.token}`,
     },
-    body: JSON.stringify({ status: "Waiting for confirmation" })
+    body: JSON.stringify({ status: "Waiting for confirmation" }),
   };
 
   try {
     const response = await fetch(options.url, options);
 
     const res = await response.json();
+
+    props.setRefresh((prev) => prev + 1);
   } catch (e) {
     console.log(e.message);
+  }
+};
+
+export const getOnePackage = async (
+  id,
+  token,
+  setCurrentPackage,
+  currentPackage,
+  setStatus
+) => {
+  const options = {
+    method: "GET",
+    "Content-Type": "application/json",
+    url: `http://localhost:4000/agent/one_package/${id}`,
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    setCurrentPackage({
+      isLoading: true,
+      isUpdating: false,
+      data: null,
+      error: null,
+    });
+
+    if (currentPackage.data) {
+      setCurrentPackage({
+        isLoading: false,
+        isUpdating: true,
+        data: currentPackage,
+        error: null,
+      });
+    }
+
+    const response = await fetch(options.url, options);
+
+    setCurrentPackage({
+      isLoading: true,
+      isUpdating: false,
+      data: null,
+      error: null,
+    });
+
+    const data = await response.json();
+
+    setStatus(data.status);
+
+    setCurrentPackage({
+      isLoading: false,
+      isUpdating: false,
+      data: data,
+      error: null,
+    });
+  } catch (e) {
+    setCurrentPackage({
+      isLoading: false,
+      isUpdating: false,
+      data: null,
+      error: e.message,
+    });
   }
 };

@@ -2,10 +2,13 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   container: {
+    borderWidth: 1,
+    borderColor: "#000",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignContent: "center",
+    width: "100%",
   },
 
   header: {

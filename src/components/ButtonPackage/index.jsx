@@ -12,50 +12,73 @@ import {
   Divider,
 } from "@material-ui/core";
 import useStyles from "./styles";
-import { requestPackage, pickUp, confirmOwner, UpdateWaiting, confirmClient } from "../../api/api"
+import {
+  requestPackage,
+  pickUp,
+  confirmOwner,
+  UpdateWaiting,
+  confirmClient,
+  getOnePackage,
+} from "../../api/api";
 
 const ButtonPackage = (props) => {
+  const { setCurrentPackage, currentPackage, packageId, token, status } = props;
+
   const flag = false;
   const statusFunctions = {
-    "Pending": {
-      function: () => requestPackage(props),
-      content: "Request Pacakge"
+    Pending: {
+      function: () => {
+        requestPackage(props);
+      },
+      content: "Request Pacakge",
     },
     "In proccess": {
       function: () => pickUp(props),
-      content: "Pick Up Pacakge"
+      content: "Pick Up Pacakge",
     },
     "Waiting to be delivered": {
       function: () => confirmOwner(props),
-      content: "Confirm"
+      content: "Confirm",
     },
     "On transit": {
       function: () => UpdateWaiting(props),
-      content: "Arrived"
+      content: "Arrived",
     },
     "Waiting for confirmation": {
       function: () => confirmClient(props),
-      content: "Confirm"
+      content: "Confirm",
     },
-    "Delivered": {
+    Delivered: {
       function: 3,
-      content: "Done"
+      content: "Done",
     },
-  }
+  };
+
+  // let content;
+
+  // switch (r) {
+  //   case Pending:
+  //     content = 'Request it'
+  //     break;
+
+  //   default:
+  //     break;
+  // }
+
   const styles = useStyles();
 
   return (
-    <Container calssName={styles.container}>
+    <Container className={styles.container}>
       <div>
         <Button
           variant="contained"
           color="primary"
           className={styles.button}
           onClick={() => {
-            statusFunctions.status.function();
+            statusFunctions[status].function();
           }}
         >
-          {statusFunctions.status.content}
+          {statusFunctions[status].content}
         </Button>
       </div>
     </Container>

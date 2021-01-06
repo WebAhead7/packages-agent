@@ -9,6 +9,12 @@ const GlobalContextProvider = (props) => {
   const [radius, setRadius] = useState((prev) => prev);
   const [cost, setCost] = useState((prev) => prev);
   const [drawer, setDrawer] = useState(false);
+  const [currentPackage, setCurrentPackage] = useState({
+    isLoading: false,
+    isUpdating: false,
+    data: null,
+    error: null,
+  });
   const [myLocation, setMyLocation] = useState({
     latitude: "32.867077099999996",
     longitude: "35.1818587",
@@ -23,17 +29,17 @@ const GlobalContextProvider = (props) => {
   });
   const token = getItemLocal("accessToken");
   const [auth, setAuth] = useState({
-    isAuth: true,
+    isAuth: false,
     error: null,
     token: null,
     isLoading: false,
   });
 
-  // useEffect(() => {
-  //   if (auth.token === null && token !== null) {
-  //     setAuth({ isAuth: true, error: null, token: token, isLoading: false });
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (auth.token === null && token !== null) {
+      setAuth({ isAuth: true, error: null, token: token, isLoading: false });
+    }
+  }, []);
 
   return (
     <globalContext.Provider
@@ -54,6 +60,8 @@ const GlobalContextProvider = (props) => {
         setPackages,
         myLocation,
         setMyLocation,
+        currentPackage,
+        setCurrentPackage,
       }}
     >
       {props.children}

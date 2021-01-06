@@ -55,7 +55,7 @@ export default function HorizontalLabelPositionBelowStepper(props) {
 
   useEffect(() => {
     setActiveStep(steps.indexOf(status));
-  }, []);
+  }, [status]);
 
   return (
     <div

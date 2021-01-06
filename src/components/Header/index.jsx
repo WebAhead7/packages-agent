@@ -37,6 +37,8 @@ const Header = (props) => {
     setDrawer(!drawer);
   };
 
+  console.log(location.pathname);
+
   const handleGoBack = () => history.goBack();
   const styles = useStyles();
   return (
@@ -61,7 +63,7 @@ const Header = (props) => {
           </Button>
         )}
 
-        {!auth.isAuth && isBack(location.pathname) && (
+        {!auth.isAuth && !isBack(location.pathname) && (
           <Button onClick={handleGoBack}>
             <ArrowBackIosIcon fontSize="large" />
           </Button>
