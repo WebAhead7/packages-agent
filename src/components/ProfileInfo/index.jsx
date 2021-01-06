@@ -6,7 +6,9 @@ import AddBoxIcon from "@material-ui/icons/AddBox";
 import EditIcon from "@material-ui/icons/Edit";
 
 const ProfileInfo = (props) => {
-  const { email, phone, mobile } = props.data.data;
+  const { email, phone } = props.data.data;
+
+  console.log(props.data.data);
   const styles = useStyles();
 
   return (
@@ -23,12 +25,8 @@ const ProfileInfo = (props) => {
       <Typography variant="subtitle2" style={{ color: "#5A5A5A" }}>
         {phone}
       </Typography>
-      <Typography variant="caption" style={{ color: "#727272" }}>
-        Mobile number
-      </Typography>
-      <Typography variant="subtitle2" style={{ color: "#5A5A5A" }}>
-        {mobile}
-      </Typography>
+      <Typography variant="caption" style={{ color: "#727272" }}></Typography>
+      <Typography variant="subtitle2" style={{ color: "#5A5A5A" }}></Typography>
     </div>
   );
 };

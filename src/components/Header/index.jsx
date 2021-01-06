@@ -13,19 +13,11 @@ import {
   LoginRoute,
   ProfileRoute,
   RegisterRoute,
-  AddPackageRoute,
-  AddBusinessRoute,
 } from "../../navigation/Router";
 
 const Header = (props) => {
   const location = useLocation();
-  const routes = [
-    HomeRoute,
-    ProfileRoute,
-    RegisterRoute,
-    AddPackageRoute,
-    AddBusinessRoute,
-  ];
+  const routes = [HomeRoute, ProfileRoute, RegisterRoute];
 
   const isBack = (r) => routes.some((route) => route === r);
 
@@ -36,8 +28,6 @@ const Header = (props) => {
   const handleDrawer = () => {
     setDrawer(!drawer);
   };
-
-  console.log(location.pathname);
 
   const handleGoBack = () => history.goBack();
   const styles = useStyles();

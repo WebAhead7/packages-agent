@@ -14,7 +14,9 @@ import {
 import useStyles from "./styles";
 
 const Confirm = (props) => {
+  const { message, confirmationCode } = props;
   const styles = useStyles();
+
   return (
     <Container className={styles.container}>
       <p className={styles.header}>Confirmation Code</p>
@@ -27,6 +29,12 @@ const Confirm = (props) => {
         variant="filled"
         placeholder="**********"
       />
+
+      {message && (
+        <Typography variant="caption" style={{ color: "#727272" }}>
+          {message}
+        </Typography>
+      )}
     </Container>
   );
 };

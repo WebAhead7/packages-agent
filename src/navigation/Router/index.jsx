@@ -25,8 +25,7 @@ import Package from "../../screens/Package";
 import Login from "../../screens/Login";
 import Profile from "../../screens/Profile";
 import Register from "../../screens/Signup";
-import AddPackage from "../../screens/AddPackage";
-import AddBusiness from "../../screens/AddBusiness";
+
 import Header from "../../components/Header";
 import SwitchToMap from "../../components/SwitchToMap";
 
@@ -35,10 +34,9 @@ export const PackageRoute = "/package/:id";
 export const LoginRoute = "/login";
 export const ProfileRoute = "/profile";
 export const RegisterRoute = "/register";
-export const AddPackageRoute = "/addBackage";
+
 export const MapViewRoute = "/mapview";
 export const StoreRoute = "./storeview";
-export const AddBusinessRoute = "/add_business";
 
 const useStyles = makeStyles({
   list: {
@@ -129,7 +127,7 @@ export default function DrawerNav(props) {
               </Link>
 
               {/* <Link
-                to={AddPackageRoute}
+                to={''}
                 className={styles.link}
                 style={{ textDecoration: "none", color: "#000" }}
               >
@@ -141,7 +139,7 @@ export default function DrawerNav(props) {
                 </ListItem>
               </Link>
               <Link
-                to={AddBusinessRoute}
+                to={}
                 className={styles.link}
                 style={{ textDecoration: "none", color: "#000" }}
               >

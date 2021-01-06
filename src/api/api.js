@@ -178,7 +178,7 @@ export const pickUp = async (props) => {
 
 export const confirmOwner = async (props) => {
   const options = {
-    url: `${local}/agent/confirm_pickup/:${props.businessId}/:${props.packageId}`,
+    url: `${local}/agent/confirm_pickup/${props.businessId}/${props.packageId}`,
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -195,6 +195,8 @@ export const confirmOwner = async (props) => {
 
     const res = await response.json();
 
+    props.setMessage(res.message);
+
     props.setRefresh((prev) => prev + 1);
   } catch (e) {
     console.log(e.message);
@@ -203,7 +205,7 @@ export const confirmOwner = async (props) => {
 
 export const confirmClient = async (props) => {
   const options = {
-    url: `${local}/agent/confirm_delivery/:${props.businessId}/:${props.packageId}`,
+    url: `${local}/agent/confirm_delivery/${props.businessId}/${props.packageId}`,
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -221,6 +223,7 @@ export const confirmClient = async (props) => {
     const res = await response.json();
 
     props.setRefresh((prev) => prev + 1);
+    props.setMessage(res.message);
   } catch (e) {
     console.log(e.message);
   }
@@ -228,7 +231,7 @@ export const confirmClient = async (props) => {
 
 export const UpdateWaiting = async (props) => {
   const options = {
-    url: `${local}/package/status/:${props.businessId}/:${props.packageId}`,
+    url: `${local}/package/status/${props.businessId}/${props.packageId}`,
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -242,6 +245,7 @@ export const UpdateWaiting = async (props) => {
 
     const res = await response.json();
 
+    props.setMessage(res.message);
     props.setRefresh((prev) => prev + 1);
   } catch (e) {
     console.log(e.message);

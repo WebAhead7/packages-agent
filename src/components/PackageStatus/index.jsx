@@ -54,13 +54,21 @@ export default function HorizontalLabelPositionBelowStepper(props) {
   };
 
   useEffect(() => {
-    setActiveStep(steps.indexOf(status));
+    if (status === "Waiting for confirmation") {
+      setActiveStep(steps.indexOf("On transit"));
+    } else {
+      setActiveStep(steps.indexOf(status));
+    }
   }, [status]);
 
   return (
     <div
-      style={{ justifyContent: "center", display: "flex" }}
-      className={classes.root}
+      style={{
+        justifyContent: "center",
+        display: "flex",
+        flex: 1,
+        width: "95%",
+      }}
     >
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (

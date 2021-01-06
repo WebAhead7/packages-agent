@@ -7,7 +7,7 @@ import AddBoxIcon from "@material-ui/icons/AddBox";
 import EditIcon from "@material-ui/icons/Edit";
 
 const ProfileHeader = (props) => {
-  const { firstname, lastname, createdAt } = props.data.data;
+  const { first_name, last_name, createdAt } = props.data.data;
   const styles = useStyles();
 
   return (
@@ -19,7 +19,7 @@ const ProfileHeader = (props) => {
           src="/assets/images/profile.png"
         />
         <Typography style={{ marginTop: 10 }} variant="h5">
-          {`${firstname} ${lastname}`}
+          {`${first_name} ${last_name}`}
         </Typography>
         <div className={styles.controls}>
           <div className={styles.innerControls}>

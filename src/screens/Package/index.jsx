@@ -27,6 +27,7 @@ const Package = (props) => {
   const [confirmation, setConfirmation] = useState("");
   const styles = useStyles();
   const [status, setStatus] = useState(null);
+  const [message, setMessage] = useState("");
 
   const forceUpdate = useForceUpdate();
 
@@ -78,6 +79,7 @@ const Package = (props) => {
         <Confirm
           setConfirmation={setConfirmation}
           confirmationCode={confirmation}
+          message={message}
         />
       )}
 
@@ -107,6 +109,7 @@ const Package = (props) => {
           setCurrentPackage={setCurrentPackage}
           currentPackage={currentPackage}
           setRefresh={setRefresh}
+          setMessage={setMessage}
         />
       )}
     </Container>
