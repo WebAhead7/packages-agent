@@ -60,7 +60,6 @@ export const getAllPackagesByRadius = async (
     }),
   };
 
-  console.log(myLocation.coords);
   try {
     setPackages({
       isLoading: true,

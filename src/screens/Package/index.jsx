@@ -34,8 +34,6 @@ const Package = (props) => {
 
   const isTimer = status === "In proccess";
 
-  console.log(isTimer);
-
   const {
     auth,
     setAuth,
@@ -64,6 +62,8 @@ const Package = (props) => {
 
   if (!currentPackage.data && !packages) return <Loader />;
 
+  console.log(status);
+
   return (
     <Container className={styles.container}>
       {currentPackage.data && status !== "Delivered" && (
@@ -87,7 +87,10 @@ const Package = (props) => {
 
       {status && status === "Delivered" && <PackageDelivered />}
 
-      {currentPackage.data && isTimer && <Timer data={currentPackage.data} />}
+      {currentPackage.data &&
+        (status == "In proccess" || status == "On transit") && (
+          <Timer data={currentPackage.data} />
+        )}
 
       {/* {<Links />} */}
       {status && currentPackage.data && (

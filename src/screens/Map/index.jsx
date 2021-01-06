@@ -163,59 +163,67 @@ const Map = (props) => {
       });
   };
 
+  if (!packages) return <Loader />;
+
+  console.log(packages.data[0].address.address.longitude);
+
   return (
     <>
       <ReactMapGL
         {...viewport}
-        // setRTLTextPlugin={true}
         mapboxApiAccessToken={ACCESS_TOKEN}
         mapStyle="mapbox://styles/mapbox/streets-v11"
         onViewportChange={(viewport) => {
           setViewport(viewport);
         }}
       >
-        {data.map((pack, index) => (
-          <Marker
-            key={index}
-            latitude={pack.latitude}
-            longitude={pack.longitude}
-          >
-            <button
-              style={{
-                borderRadius: 40,
-                background: "#000",
-                color: "#fff",
-                width: 60,
-                height: 60,
-              }}
-              className="marker-btn"
-              onClick={(e) => {
-                e.preventDefault();
-                setSelectedPackage(pack);
-                calculateRoute({
-                  latitude: pack.latitude,
-                  longitude: pack.longitude,
-                });
-                setViewport({
-                  latitude: selectedPackage ? pack.latitude : 32.827,
-                  longitude: selectedPackage ? pack.longitude : 35.1818,
-                  width: "100vw",
-                  height: "100vh",
-                  zoom: 14,
-                  transitionDuration: 300,
-                });
-              }}
+        {packages &&
+          packages.data.map((pack, index) => (
+            <Marker
+              key={index}
+              latitude={+pack.address.address.latitude}
+              longitude={+pack.address.address.longitude}
             >
-              <StoreIcon fontSize="large" />
-            </button>
-          </Marker>
-        ))}
+              <button
+                style={{
+                  borderRadius: 40,
+                  background: "#000",
+                  color: "#fff",
+                  width: 60,
+                  height: 60,
+                }}
+                className="marker-btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedPackage(pack);
+                  calculateRoute({
+                    latitude: +pack.address.address.latitude,
+                    longitude: +pack.address.address.longitude,
+                  });
+                  setViewport({
+                    latitude: selectedPackage
+                      ? +pack.address.address.latitude
+                      : 32.827,
+                    longitude: selectedPackage
+                      ? +pack.address.address.longitude
+                      : 35.1818,
+                    width: "100vw",
+                    height: "100vh",
+                    zoom: 14,
+                    transitionDuration: 300,
+                  });
+                }}
+              >
+                <StoreIcon fontSize="large" />
+              </button>
+            </Marker>
+          ))}
 
         {selectedPackage ? (
           <>
             <Popup
-              latitude={selectedPackage.latitude}
-              longitude={selectedPackage.longitude}
+              latitude={+selectedPackage.address.address.latitude}
+              longitude={+selectedPackage.address.address.latitude}
               onClose={() => {
                 setSelectedPackage(null);
               }}
