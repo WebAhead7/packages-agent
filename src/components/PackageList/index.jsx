@@ -9,16 +9,18 @@ const PackageList = (props) => {
   const styles = useStyles();
   const {
     data: { data },
+    cost,
+    type,
   } = props;
-
-  console.log(data);
 
   if (!data) return <Loader />;
 
   return (
     <div style={{ position: "relative" }}>
       {data &&
-        data.map((item, index) => <PackageItem key={index} data={item} />)}
+        data
+          .filter((item) => item.delivery_price <= cost)
+          .map((item, index) => <PackageItem key={index} data={item} />)}
     </div>
   );
 };

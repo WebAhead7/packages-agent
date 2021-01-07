@@ -45,11 +45,9 @@ export const getAllPackagesByRadius = async (
   myLocation,
   token
 ) => {
-  console.log("IN HEREEEEE");
-
   const options = {
     method: "POST",
-    url: "http://localhost:4000/package/fr/12",
+    url: `http://localhost:4000/package/fr/${radius}`,
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
@@ -74,8 +72,6 @@ export const getAllPackagesByRadius = async (
     });
 
     const res = await response.json();
-
-    console.log(res);
 
     setPackages({
       isLoading: false,

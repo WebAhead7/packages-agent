@@ -165,8 +165,6 @@ const Map = (props) => {
 
   if (!packages) return <Loader />;
 
-  console.log(packages.data[0].address.address.longitude);
-
   return (
     <>
       <ReactMapGL
@@ -222,8 +220,12 @@ const Map = (props) => {
         {selectedPackage ? (
           <>
             <Popup
-              latitude={+selectedPackage.address.address.latitude}
-              longitude={+selectedPackage.address.address.latitude}
+              latitude={
+                selectedPackage && +selectedPackage.address.address.latitude
+              }
+              longitude={
+                selectedPackage && +selectedPackage.address.address.latitude
+              }
               onClose={() => {
                 setSelectedPackage(null);
               }}
@@ -240,7 +242,7 @@ const Map = (props) => {
             </Popup>
           </>
         ) : null}
-        {selectedPackage && <StoreOverMap />}
+        {selectedPackage && <StoreOverMap data={selectedPackage} />}
         <IconButton
           onClick={() =>
             setViewport({

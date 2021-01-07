@@ -28,24 +28,26 @@ const Home = (props) => {
     myLocation,
     radius,
     setRadius,
+    cost,
+    setCost,
+    type,
+    setType,
   } = useContext(globalContext);
+
+  const token = auth.token;
 
   const [myPackages, setMyPackages] = useState(null);
   const [switchOn, setSwitchOn] = useState(false);
 
-  // useEffect(() => {
-  //   getAllPackages(setPackages, auth.token);
-  // }, [switchOn]);
-
-  // useEffect(() => {
-  //   if (packages.data) {
-  //     const data = packages.data.filter((p) => p.status === "Pending");
-  //     setMyPackages({
-  //       isLoading: false,
-  //       data: data,
-  //     });
-  //   }
-  // }, [switchOn]);
+  useEffect(() => {
+    if (packages.data) {
+      const data = packages.data.filter((p) => p.status === "Pending");
+      setMyPackages({
+        isLoading: false,
+        data: data,
+      });
+    }
+  }, [switchOn]);
 
   useEffect(() => {
     if (!agentInfo.data) {
@@ -61,13 +63,25 @@ const Home = (props) => {
         style={{ height: "100%", display: "flex", flexDirection: "column" }}
       >
         {/* <Filter /> */}
-        {/* <Filter setRadius={setRadius} radius={radius} /> */}
+        {myLocation && (
+          <Filter
+            setRadius={setRadius}
+            radius={radius}
+            cost={cost}
+            setCost={setCost}
+            type={type}
+            setType={setType}
+            myLocation={myLocation}
+            token={token}
+            setPackages={setPackages}
+          />
+        )}
         <Button color="secondary" onClick={() => setSwitchOn((prev) => !prev)}>
           {switchOn ? "All" : "My packages"}
         </Button>
 
         {packages.data && packages.data.length !== 0 && (
-          <PackageList data={packages} />
+          <PackageList data={packages} cost={cost} type={type} />
         )}
 
         {/* {packages.data && myPackages.data && !switchOn && (

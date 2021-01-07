@@ -6,8 +6,8 @@ const get = "get";
 
 const GlobalContextProvider = (props) => {
   const [type, setType] = useState("all");
-  const [radius, setRadius] = useState((prev) => prev);
-  const [cost, setCost] = useState((prev) => prev);
+  const [radius, setRadius] = useState(1);
+  const [cost, setCost] = useState(1);
   const [drawer, setDrawer] = useState(false);
   const [currentPackage, setCurrentPackage] = useState({
     isLoading: false,
@@ -62,7 +62,7 @@ const GlobalContextProvider = (props) => {
         currentPackage,
         setCurrentPackage,
         radius,
-        setRadius
+        setRadius,
       }}
     >
       {props.children}

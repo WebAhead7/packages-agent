@@ -34,7 +34,6 @@ function App(props) {
   useEffect(() => {
     getMyLocation((location) => {
       setMyLocation(location);
-      console.log(location);
     });
   }, []);
 
