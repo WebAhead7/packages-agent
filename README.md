@@ -24,7 +24,6 @@ If any parcel or package is found around your current location and its planned d
 1. Run `npm install`
 1. Run `npm start`
 
-Check out the project instructions from WebAhead: [Projet instructions](https://github.com/WebAhead/master-reference/blob/master/coursebook/week-10/project.md)
 
 ## Built With
 
@@ -36,7 +35,7 @@ Check out the project instructions from WebAhead: [Projet instructions](https://
 
 ## Roadmap
 
-See the [open issues](https://github.com/WebAhead7/tutorialfront/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/WebAhead7/packages-agent/issues) for a list of proposed features (and known issues).
 
 <!-- CONTACT -->
 
